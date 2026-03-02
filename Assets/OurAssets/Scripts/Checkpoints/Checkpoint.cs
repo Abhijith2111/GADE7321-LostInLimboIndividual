@@ -2,55 +2,28 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    [SerializeField]
-    bool isStart = false;
-    [SerializeField]
-    int startingLives = 0;
+    [field: SerializeField]
+    public bool IsStart { get; set; }
+    [field: SerializeField]
+    public int StartingLives { get; set; }
 
-    public bool HasBeenCaptured { get; private set; }
-    public int Lives { get; private set; }
+    public bool HasBeenCaptured { get; set; }
+    public int Lives { get; set; }
     public int Score { get; set; }
 
     void Start()
     {
-        if (isStart)
+        if (IsStart) CheckpointManager.Instance?.SetStartingCheckpoint(this);
+        else
         {
-            if (!CheckpointManager.Instance.CheckpointStack.IsEmpty && CheckpointManager.Instance.CheckpointStack.Peek() != this)
-            {
-                isStart = false;
-                startingLives = 0;
-            }
-            else CheckpointManager.Instance.CheckpointStack.Push(this);
+            HasBeenCaptured = false;
+            Lives = 0;
         }
-        HasBeenCaptured = isStart;
-        Lives = startingLives;
         Score = 0;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (HasBeenCaptured) return;
-        HasBeenCaptured = true;
-        if (!CheckpointManager.Instance.CheckpointStack.IsEmpty)
-        {
-            Checkpoint last = CheckpointManager.Instance.CheckpointStack.Peek();
-            Lives = last.Lives;
-            Score = last.Score;
-            CheckpointManager.Instance.CheckpointStack.Pop();
-        }
-        CheckpointManager.Instance.CheckpointStack.Push(this);
-    }
-
-    public void LoseLife()
-    {
-        --Lives;
-        if (Lives == 0)
-        {
-            // Death Screen
-        }
-        else
-        {
-            // Respawn
-        }
+        if (other.CompareTag("Player")) CheckpointManager.Instance?.CaptureCheckpoint(this);
     }
 }
