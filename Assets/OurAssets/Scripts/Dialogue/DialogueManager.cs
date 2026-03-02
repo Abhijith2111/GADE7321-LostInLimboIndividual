@@ -12,10 +12,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     string iconFolder = "DialogueIcons";
 
+    readonly QueueADT<DialogueItem> dialogueQueue = new QueueADT<DialogueItem>();
+
     public DialogueItem CurrentDialogueItem { get; private set; }
     public Sprite CurrentDialogueIcon { get; private set; }
-
-    QueueADT<DialogueItem> dialogueQueue = new QueueADT<DialogueItem>();
 
     void Awake()
     {
