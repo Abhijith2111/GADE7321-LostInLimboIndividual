@@ -6,6 +6,8 @@ public class Checkpoint : MonoBehaviour
     public bool IsStart { get; set; } = false;
     [field: SerializeField]
     public int StartingLives { get; set; } = 0;
+    [field: SerializeField]
+    public Transform RespawnPoint { get; private set; } = null;
 
     public bool HasBeenCaptured { get; set; }
     public int Lives { get; set; }

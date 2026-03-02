@@ -41,7 +41,8 @@ public class CheckpointManager : MonoBehaviour
         --checkpointStack.Peek().Lives;
         if (checkpointStack.Peek().Lives > 0)
         {
-            // Respawn
+            Transform respawnPoint = checkpointStack.Peek().RespawnPoint ?? checkpointStack.Peek().transform;
+            //player.Respawn(respawnPoint);
         }
         else
         {
