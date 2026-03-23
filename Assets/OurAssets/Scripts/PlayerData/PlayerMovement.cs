@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     // David - Added crouch start function to work with new input system. If crouchToggle
     // is off then player will always start crouching, if crouchToggle is on then isCrouching
     // toggles between true and false
-    void CrouchStart(InputAction.CallbackContext ctx) => isCrouching = !crouchToggle || (crouchToggle && !isCrouching);
+    void CrouchStart(InputAction.CallbackContext ctx) => isCrouching = !crouchToggle || !isCrouching;
 
     // David - Added crouch end function to work with new input system. If crouchToggle
     // is off then the player will always stop crouching, if crouchToggle is on then
