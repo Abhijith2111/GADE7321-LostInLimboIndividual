@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInputScript))]
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField]
@@ -29,21 +28,25 @@ public class PlayerLook : MonoBehaviour
 
     float pitch = 0f;
     float yaw = 0f;
-    PlayerInputScript pIS;
+
+    Vector2 LookInput => InputSystem.actions.FindAction("Look").ReadValue<Vector2>();
+    InputDevice LookDevice => InputSystem.actions.FindAction("Look").controls[0].device; // The last used device (couldn't find anything online showing this, but I found it works through trial and error)
 
     void Awake()
     {
-        pIS = GetComponent<PlayerInputScript>();
+        // This doesn't seem to be doing anything...
+        // Did Unity change this?
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
-        float mX = pIS.LookInput.x * pIS.LookInput.x < deadZone * deadZone ? 0f : pIS.LookInput.x;
-        float mY = pIS.LookInput.y * pIS.LookInput.y < deadZone * deadZone ? 0f : pIS.LookInput.y;
-        float hSens = pIS.LookDevice is Gamepad ? controllerHorizontalSensitivity * Time.deltaTime : mouseHorizontalSensitivity;
-        float vSens = pIS.LookDevice is Gamepad ? controllerVerticalSensitivity * Time.deltaTime : mouseVerticalSensitivity;
+        // For Future Self: InputSystem.actions.devices.Value[0] is the last used device (couldn't find anything online showing this, but I found it works through trial and error)
+        float mX = LookInput.x * LookInput.x < deadZone * deadZone ? 0f : LookInput.x;
+        float mY = LookInput.y * LookInput.y < deadZone * deadZone ? 0f : LookInput.y;
+        float hSens = LookDevice is Gamepad ? controllerHorizontalSensitivity * Time.deltaTime : mouseHorizontalSensitivity;
+        float vSens = LookDevice is Gamepad ? controllerVerticalSensitivity * Time.deltaTime : mouseVerticalSensitivity;
         yaw += mX * hSens;
         pitch = Mathf.Clamp(pitch - mY * vSens, minVerticalAngle, maxVerticalAngle);
         if (cameraTarget != null) cameraTarget.localRotation = Quaternion.Euler(pitch, yaw, 0f);

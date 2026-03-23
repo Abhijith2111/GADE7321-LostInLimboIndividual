@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController), typeof(PlayerInputScript))]
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     public float walkSpeed = 6f;
@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Min(0f)]
     float runTurnSpeed = 12f; // David added
 
-    PlayerInputScript pIS; // David added
     bool isGrounded; // David added
 
     private Vector3 moveDirection = Vector3.zero;
@@ -34,28 +33,29 @@ public class PlayerMovement : MonoBehaviour
     bool isRunning = false; // David - Made this a member instead of local variable to work with new input system
     bool isCrouching = false; // David added
 
+    Vector2 MoveInput => InputSystem.actions.FindAction("Move").ReadValue<Vector2>(); // David added
+
     void Awake()
     {
         // David - Moved get component to awake because it's better to do here
         // compared to start
         characterController = GetComponent<CharacterController>();
-        // David - Added player input script stuff
-        pIS = GetComponent<PlayerInputScript>();
-        pIS.AddJumpAction(Jump);
-        pIS.AddRunActionStart(RunStart);
-        pIS.AddRunActionEnd(RunEnd);
-        pIS.AddCrouchActionStart(CrouchStart);
-        pIS.AddCrouchActionEnd(CrouchEnd);
+        // David - Work with new input system
+        InputSystem.actions.FindAction("Jump").started += Jump;
+        InputSystem.actions.FindAction("Run").started += RunStart;
+        InputSystem.actions.FindAction("Run").canceled += RunEnd;
+        InputSystem.actions.FindAction("Crouch").started += CrouchStart;
+        InputSystem.actions.FindAction("Crouch").canceled += CrouchEnd;
     }
 
     // David added
     void OnDestroy()
     {
-        pIS.RemoveJumpAction(Jump);
-        pIS.RemoveRunActionStart(RunStart);
-        pIS.RemoveRunActionEnd(RunEnd);
-        pIS.RemoveCrouchActionStart(CrouchStart);
-        pIS.RemoveCrouchActionEnd(CrouchEnd);
+        InputSystem.actions.FindAction("Jump").started -= Jump;
+        InputSystem.actions.FindAction("Run").started -= RunStart;
+        InputSystem.actions.FindAction("Run").canceled -= RunEnd;
+        InputSystem.actions.FindAction("Crouch").started -= CrouchStart;
+        InputSystem.actions.FindAction("Crouch").canceled -= CrouchEnd;
     }
 
     void Update()
@@ -85,8 +85,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 right = new Vector3(cameraTarget.right.x, 0f, cameraTarget.right.z).normalized;
 
         // David - Only move horizontally if move input magnitude is above dead zone
-        float xIn = pIS.MoveInput.x;
-        float zIn = pIS.MoveInput.y;
+        float xIn = MoveInput.x;
+        float zIn = MoveInput.y;
         Vector3 movementDirectionXZ = Vector3.ClampMagnitude(forward * zIn + right * xIn, 1f);
         // David - merged curSpeedX and curSpeedZ into curSpeedXZ
         Vector3 curSpeedXZ = Vector3.zero;
