@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     bool isCrouching = false; // David added
 
     Vector2 MoveInput => InputSystem.actions.FindAction("Move").ReadValue<Vector2>(); // David added
+    bool crouchToggle = true; // David added (can maybe add a setting for players)
 
     void Awake()
     {
@@ -132,11 +133,15 @@ public class PlayerMovement : MonoBehaviour
     // David - Added run end function to work with new input system
     void RunEnd(InputAction.CallbackContext ctx) => isRunning = false;
 
-    // David - Added crouch start function to work with new input system
-    void CrouchStart(InputAction.CallbackContext ctx) => isCrouching = true;
+    // David - Added crouch start function to work with new input system. If crouchToggle
+    // is off then player will always start crouching, if crouchToggle is on then isCrouching
+    // toggles between true and false
+    void CrouchStart(InputAction.CallbackContext ctx) => isCrouching = !crouchToggle || (crouchToggle && !isCrouching);
 
-    // David - Added crouch end function to work with new input system
-    void CrouchEnd(InputAction.CallbackContext ctx) => isCrouching = false;
+    // David - Added crouch end function to work with new input system. If crouchToggle
+    // is off then the player will always stop crouching, if crouchToggle is on then
+    // isCrouching remains the same
+    void CrouchEnd(InputAction.CallbackContext ctx) => isCrouching = crouchToggle && isCrouching;
 
     // got rid of floating issue.
 }
