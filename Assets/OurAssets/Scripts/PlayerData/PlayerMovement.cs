@@ -12,33 +12,34 @@ public class PlayerMovement : MonoBehaviour
     public float crouchHeight = 0.8f;
     public float crouchSpeed = 3f;
     [SerializeField, Min(0f)]
-    float groundDistance = 0.1f; // Added by David
+    float groundDistance = 0.1f; // David added
     [SerializeField]
-    LayerMask groundMask; // Added by David
+    LayerMask groundMask; // David added
     [SerializeField]
-    Transform cameraTarget; // Added by David
+    Transform cameraTarget; // David added
     [SerializeField, Range(0f, 0.1f)]
-    float deadZone = 0.05f; // Added by David
+    float deadZone = 0.05f; // David added
     [SerializeField, Min(0f)]
-    float turnSpeed = 6f; // Added by David
+    float turnSpeed = 6f; // David added
     [SerializeField, Min(0f)]
-    float runTurnSpeed = 12f; // Added by David
+    float runTurnSpeed = 12f; // David added
 
-    PlayerInputScript pIS; // Added by David
-    bool isGrounded; // Added by David
+    PlayerInputScript pIS; // David added
+    bool isGrounded; // David added
 
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController characterController;
 
     private bool canMove = true; // David - What is this for Abhi?
     bool isRunning = false; // David - Made this a member instead of local variable to work with new input system
-    bool isCrouching = false; // Added by David
+    bool isCrouching = false; // David added
 
     void Awake()
     {
         // David - Moved get component to awake because it's better to do here
         // compared to start
         characterController = GetComponent<CharacterController>();
+        // David - Added player input script stuff
         pIS = GetComponent<PlayerInputScript>();
         pIS.AddJumpAction(Jump);
         pIS.AddRunActionStart(RunStart);
@@ -47,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         pIS.AddCrouchActionEnd(CrouchEnd);
     }
 
+    // David added
     void OnDestroy()
     {
         pIS.RemoveJumpAction(Jump);
@@ -117,18 +119,23 @@ public class PlayerMovement : MonoBehaviour
         characterController.Move(moveDirection * Time.deltaTime);
     }
 
+    // David - Added jump function to work with new input system
     void Jump(InputAction.CallbackContext ctx)
     {
         // David - Jump to specific height
         if (canMove && isGrounded) moveDirection.y = Mathf.Sqrt(2f * gravity * jumpHeight);
     }
 
+    // David - Added run start function to work with new input system
     void RunStart(InputAction.CallbackContext ctx) => isRunning = true;
 
+    // David - Added run end function to work with new input system
     void RunEnd(InputAction.CallbackContext ctx) => isRunning = false;
 
+    // David - Added crouch start function to work with new input system
     void CrouchStart(InputAction.CallbackContext ctx) => isCrouching = true;
 
+    // David - Added crouch end function to work with new input system
     void CrouchEnd(InputAction.CallbackContext ctx) => isCrouching = false;
 
     // got rid of floating issue.
