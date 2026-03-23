@@ -3,25 +3,17 @@ using UnityEngine;
 public class DialogueHolder : MonoBehaviour
 {
     [SerializeField]
-    string dialogueFileName;
+    TextAsset[] dialogueFiles;
     [SerializeField]
     bool canPlayMultipleTimes = false;
 
-    Dialogue dialogue = null;
     bool hasBeenPlayed = false;
 
-    void Start()
+    public void StartDialogue(int dialogueNumber = 0)
     {
-        if (dialogue == null) TryLoadDialogue();
-    }
-
-    public void StartDialogue()
-    {
-        if (hasBeenPlayed && !canPlayMultipleTimes) return;
+        if (hasBeenPlayed && !canPlayMultipleTimes || dialogueNumber > dialogueFiles.Length) return;
         hasBeenPlayed = true;
-        if (dialogue == null) TryLoadDialogue(); // Added in case StartDialogue gets called before Start
+        Dialogue dialogue = JsonUtility.FromJson<Dialogue>(dialogueFiles[dialogueNumber].text);
         DialogueManager.Instance.StartDialogue(dialogue);
     }
-
-    void TryLoadDialogue() => dialogue = DialogueLoader.Instance.LoadDialogue(dialogueFileName);
 }

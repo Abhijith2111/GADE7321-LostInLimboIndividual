@@ -1,18 +1,18 @@
 using System.IO;
 using UnityEngine;
 
-public class DialogueLoader : MonoBehaviour
+public class DialogueIconLoader : MonoBehaviour
 {
-    static DialogueLoader _instance;
-    public static DialogueLoader Instance
+    static DialogueIconLoader _instance;
+    public static DialogueIconLoader Instance
     {
         get
         {
             // Lazy instantiation
             if (!_instance)
             {
-                GameObject go = new GameObject("DialogueLoader");
-                _instance = go.AddComponent<DialogueLoader>();
+                GameObject go = new GameObject("DialogueIconLoader");
+                _instance = go.AddComponent<DialogueIconLoader>();
             }
             return _instance;
         }
@@ -20,8 +20,6 @@ public class DialogueLoader : MonoBehaviour
 
     [SerializeField]
     string dialogueFolder = "Dialogue";
-    [SerializeField]
-    string jsonFolder = "DialogueJSONs";
     [SerializeField]
     string iconFolder = "DialogueIcons";
     [SerializeField]
@@ -31,19 +29,6 @@ public class DialogueLoader : MonoBehaviour
     {
         if (_instance && _instance != this) Destroy(gameObject);
         else _instance = this;
-    }
-
-    T LoadResource<T>(string folder, string fileName) where T : Object
-    {
-        string resource = Path.Combine(dialogueFolder, folder, fileName);
-        return Resources.Load<T>(resource);
-    }
-
-    public Dialogue LoadDialogue(string fileName)
-    {
-        if (fileName.EndsWith(".json", System.StringComparison.OrdinalIgnoreCase)) fileName = fileName.Remove(fileName.Length - ".json".Length);
-        TextAsset json = LoadResource<TextAsset>(jsonFolder, fileName);
-        return json ? JsonUtility.FromJson<Dialogue>(json.text) : null;
     }
 
     public Sprite LoadIcon(DialogueItem dialogueItem)
@@ -57,6 +42,7 @@ public class DialogueLoader : MonoBehaviour
                 break; // Already removed the extension so break early
             }
         }
-        return LoadResource<Sprite>(iconFolder, iconFileName);
+        string resource = Path.Combine(dialogueFolder, iconFolder, iconFileName);
+        return Resources.Load<Sprite>(resource);
     }
 }

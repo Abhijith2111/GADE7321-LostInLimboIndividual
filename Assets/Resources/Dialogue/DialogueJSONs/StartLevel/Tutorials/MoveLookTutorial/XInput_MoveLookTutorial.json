@@ -1,0 +1,9 @@
+{
+	"dialogueItems": [
+		{
+			"name": "Tutorial",
+			"icon": "None",
+			"text": "Use Left Stick to move and Right Stick to rotate the camera around the character"
+		}
+	]
+}

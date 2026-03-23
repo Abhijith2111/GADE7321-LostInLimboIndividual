@@ -39,6 +39,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (CurrentDialogueIcon) Resources.UnloadAsset(CurrentDialogueIcon);
         CurrentDialogueItem = dialogueQueue.Dequeue();
-        CurrentDialogueIcon = DialogueLoader.Instance.LoadIcon(CurrentDialogueItem);
+        CurrentDialogueIcon = DialogueIconLoader.Instance.LoadIcon(CurrentDialogueItem);
     }
 }

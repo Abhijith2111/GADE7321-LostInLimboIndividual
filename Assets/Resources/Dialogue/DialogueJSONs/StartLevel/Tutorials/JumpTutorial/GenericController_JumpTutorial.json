@@ -1,0 +1,9 @@
+{
+	"dialogueItems": [
+		{
+			"name": "Tutorial",
+			"icon": "None",
+			"text": "Press Button South to jump"
+		}
+	]
+}

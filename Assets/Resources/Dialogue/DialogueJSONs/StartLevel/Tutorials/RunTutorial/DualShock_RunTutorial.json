@@ -1,0 +1,9 @@
+{
+	"dialogueItems": [
+		{
+			"name": "Tutorial",
+			"icon": "None",
+			"text": "Press and hold L3 to run"
+		}
+	]
+}
