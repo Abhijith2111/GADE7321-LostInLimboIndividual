@@ -30,7 +30,9 @@ public class PlayerLook : MonoBehaviour
     float yaw = 0f;
 
     Vector2 LookInput => InputSystem.actions.FindAction("Look").ReadValue<Vector2>();
-    InputDevice LookDevice => InputSystem.actions.FindAction("Look").controls[0].device; // The last used device (couldn't find anything online showing this, but I found it works through trial and error)
+
+    // Last used device for looking
+    InputDevice LookDevice => InputSystem.actions.FindAction("Look").activeControl?.device;
 
     void Awake()
     {
@@ -42,7 +44,6 @@ public class PlayerLook : MonoBehaviour
 
     void Update()
     {
-        // For Future Self: InputSystem.actions.devices.Value[0] is the last used device (couldn't find anything online showing this, but I found it works through trial and error)
         float mX = LookInput.x * LookInput.x < deadZone * deadZone ? 0f : LookInput.x;
         float mY = LookInput.y * LookInput.y < deadZone * deadZone ? 0f : LookInput.y;
         float hSens = LookDevice is Gamepad ? controllerHorizontalSensitivity * Time.deltaTime : mouseHorizontalSensitivity;

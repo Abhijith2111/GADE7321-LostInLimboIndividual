@@ -3,17 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(Collider), typeof(DialogueHolder))]
 public class DialogueTrigger : MonoBehaviour
 {
-    Collider _collider;
-    DialogueHolder holder;
+    protected Collider _collider;
+    protected DialogueHolder holder;
 
-    void Awake()
+    protected virtual void Awake()
     {
         _collider = GetComponent<Collider>();
         if (!_collider.isTrigger) _collider.isTrigger = true; // Make sure collider is a trigger
         holder = GetComponent<DialogueHolder>();
     }
 
-    void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) holder.StartDialogue();
     }

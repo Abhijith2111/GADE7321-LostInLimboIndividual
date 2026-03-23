@@ -119,24 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &203413977 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6671499995504067324, guid: d3a3aad6ab75c2c4aa107170eb38b74a, type: 3}
-  m_PrefabInstance: {fileID: 7760088452211544128}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &203413983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203413977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 533629a3d533feb4fb0ac5c979358561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawner
-  cameraTarget: {fileID: 1220426760}
 --- !u!1 &801661510
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +257,7 @@ GameObject:
   - component: {fileID: 919901081}
   - component: {fileID: 919901080}
   - component: {fileID: 919901079}
-  - component: {fileID: 919901078}
+  - component: {fileID: 919901082}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -283,18 +265,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &919901078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919901077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 867ab59c65be05d4baae308e534e8ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
 --- !u!114 &919901079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,7 +278,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueHolder
   dialogueFiles:
-  - {fileID: 4900000, guid: 9b334841291e6fc4ca395ca31fb34947, type: 3}
+  - {fileID: 4900000, guid: f0be29d80cdbce94fa062851152fc4a9, type: 3}
+  - {fileID: 4900000, guid: 9cf6f2bb8727414439e5d1133cecb11e, type: 3}
+  - {fileID: 4900000, guid: 73dcc62340e04a3469d20ec62dbf7855, type: 3}
+  - {fileID: 4900000, guid: 38ad44987b7bb7e43bab5ffb99808ec9, type: 3}
+  - {fileID: 4900000, guid: 10ea7f8f17644cd4587e4174e5dee774, type: 3}
   canPlayMultipleTimes: 0
 --- !u!65 &919901080
 BoxCollider:
@@ -346,11 +320,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1220426760 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9068962570404012239, guid: d3a3aad6ab75c2c4aa107170eb38b74a, type: 3}
-  m_PrefabInstance: {fileID: 7760088452211544128}
+--- !u!114 &919901082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919901077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cabe3d2427d2734697bf5ad5820f0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControlsTutorialDialogueTrigger
+  keyboardAndMouseDialogueIndex: 0
+  xInputDialogueIndex: 1
+  dualShockDialogueIndex: 2
+  switchDialogueIndex: 3
+  genericControllerDialogueIndex: 4
 --- !u!1 &1291088309
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,10 +530,7 @@ PrefabInstance:
     - {fileID: 2816739680473202008, guid: d3a3aad6ab75c2c4aa107170eb38b74a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6671499995504067324, guid: d3a3aad6ab75c2c4aa107170eb38b74a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 203413983}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3a3aad6ab75c2c4aa107170eb38b74a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
