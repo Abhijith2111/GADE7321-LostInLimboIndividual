@@ -1,5 +1,5 @@
 [System.Serializable]
 public class Dialogue
 {
-    public DialogueItem[] dialogueItems;   
+    public DialogueItem[] dialogueItems; 
 }

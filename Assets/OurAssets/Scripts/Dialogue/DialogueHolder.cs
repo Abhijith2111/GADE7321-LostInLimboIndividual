@@ -20,8 +20,8 @@ public class DialogueHolder : MonoBehaviour
         if (hasBeenPlayed && !canPlayMultipleTimes) return;
         hasBeenPlayed = true;
         if (dialogue == null) TryLoadDialogue(); // Added in case StartDialogue gets called before Start
-        DialogueManager.Instance?.StartDialogue(dialogue);
+        DialogueManager.Instance.StartDialogue(dialogue);
     }
 
-    void TryLoadDialogue() => dialogue = DialogueLoader.Instance?.LoadDialogue(dialogueFileName);
+    void TryLoadDialogue() => dialogue = DialogueLoader.Instance.LoadDialogue(dialogueFileName);
 }

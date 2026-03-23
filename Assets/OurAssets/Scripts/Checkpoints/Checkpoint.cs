@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour
 
     void Start()
     {
-        if (IsStart) CheckpointManager.Instance?.SetStartingCheckpoint(this);
+        if (IsStart) CheckpointManager.Instance.SetStartingCheckpoint(this);
         else
         {
             HasBeenCaptured = false;
@@ -26,6 +26,6 @@ public class Checkpoint : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) CheckpointManager.Instance?.CaptureCheckpoint(this);
+        if (other.CompareTag("Player")) CheckpointManager.Instance.CaptureCheckpoint(this);
     }
 }

@@ -2,7 +2,20 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    public static DialogueManager Instance { get; private set; }
+    static DialogueManager _instance;
+    public static DialogueManager Instance
+    {
+        get
+        {
+            // Lazy instantiation
+            if (!_instance)
+            {
+                GameObject go = new GameObject("DialogueManager");
+                _instance = go.AddComponent<DialogueManager>();
+            }
+            return _instance;
+        }
+    }
 
     readonly QueueADT<DialogueItem> dialogueQueue = new QueueADT<DialogueItem>();
 
@@ -11,8 +24,8 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this) Destroy(gameObject);
-        else Instance = this;
+        if (_instance && _instance != this) Destroy(gameObject);
+        else _instance = this;
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -24,8 +37,8 @@ public class DialogueManager : MonoBehaviour
 
     public void LoadNextItem()
     {
-        if (CurrentDialogueIcon != null) Resources.UnloadAsset(CurrentDialogueIcon);
+        if (CurrentDialogueIcon) Resources.UnloadAsset(CurrentDialogueIcon);
         CurrentDialogueItem = dialogueQueue.Dequeue();
-        CurrentDialogueIcon = DialogueLoader.Instance?.LoadIcon(CurrentDialogueItem);
+        CurrentDialogueIcon = DialogueLoader.Instance.LoadIcon(CurrentDialogueItem);
     }
 }

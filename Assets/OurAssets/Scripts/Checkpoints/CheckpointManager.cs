@@ -2,14 +2,43 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-    public static CheckpointManager Instance { get; private set; }
+    static CheckpointManager _instance;
+    public static CheckpointManager Instance
+    {
+        get
+        {
+            // Lazy instantiation
+            if (!_instance)
+            {
+                GameObject go = new GameObject("CheckpointManager");
+                _instance = go.AddComponent<CheckpointManager>();
+            }
+            return _instance;
+        }
+    }
 
     readonly StackADT<Checkpoint> checkpointStack = new StackADT<Checkpoint>();
 
+    PlayerRespawner _player;
+    PlayerRespawner Player
+    {
+        get
+        {
+            // This ensures that if a player exists they will be used. We don't want
+            // to assign the player in awake since checkpoint manager awake might
+            // happen before player respawner gets created. We also don't want to
+            // assign the player in start since checkpoint start might happen before
+            // checkpoint manager start and then player won't be assigned when trying
+            // to spawn the player at the starting checkpoint
+            if (!_player) _player = FindFirstObjectByType<PlayerRespawner>();
+            return _player;
+        }
+    }
+
     void Awake()
     {
-        if (Instance != null && Instance != this) Destroy(gameObject);
-        else Instance = this;
+        if (_instance && _instance != this) Destroy(gameObject);
+        else _instance = this;
     }
 
     public void SetStartingCheckpoint(Checkpoint checkpoint)
@@ -19,7 +48,12 @@ public class CheckpointManager : MonoBehaviour
             checkpoint.IsStart = false;
             checkpoint.StartingLives = 0;
         }
-        else CaptureCheckpoint(checkpoint);
+        else
+        {
+            CaptureCheckpoint(checkpoint);
+            Transform startingPoint = checkpoint.RespawnPoint ?? checkpoint.transform;
+            Player.Respawn(startingPoint);
+        }
     }
 
     public void CaptureCheckpoint(Checkpoint checkpoint)
@@ -42,7 +76,7 @@ public class CheckpointManager : MonoBehaviour
         if (checkpointStack.Peek().Lives > 0)
         {
             Transform respawnPoint = checkpointStack.Peek().RespawnPoint ?? checkpointStack.Peek().transform;
-            //player.Respawn(respawnPoint);
+            Player.Respawn(respawnPoint);
         }
         else
         {

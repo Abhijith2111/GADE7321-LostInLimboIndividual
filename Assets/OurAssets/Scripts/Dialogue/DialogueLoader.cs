@@ -3,7 +3,20 @@ using UnityEngine;
 
 public class DialogueLoader : MonoBehaviour
 {
-    public static DialogueLoader Instance { get; private set; }
+    static DialogueLoader _instance;
+    public static DialogueLoader Instance
+    {
+        get
+        {
+            // Lazy instantiation
+            if (!_instance)
+            {
+                GameObject go = new GameObject("DialogueLoader");
+                _instance = go.AddComponent<DialogueLoader>();
+            }
+            return _instance;
+        }
+    }
 
     [SerializeField]
     string dialogueFolder = "Dialogue";
@@ -16,8 +29,8 @@ public class DialogueLoader : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this) Destroy(gameObject);
-        else Instance = this;
+        if (_instance && _instance != this) Destroy(gameObject);
+        else _instance = this;
     }
 
     T LoadResource<T>(string folder, string fileName) where T : Object
