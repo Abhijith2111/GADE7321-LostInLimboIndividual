@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
                 DontDestroyOnLoad(_instance.gameObject);
                 // Add function to event
                 InputState.onChange += _instance.OnInputStateChange;
+                InputSystem.onDeviceChange += _instance.OnDeviceChange;
             }
             return _instance;
         }
@@ -41,7 +42,7 @@ public class InputManager : MonoBehaviour
 
     // If a gamepad is connected then default to displaying controls for the gamepad
     // otherwise use the first device connected
-    InputDevice DefaultInputDevice => Gamepad.all.Count > 0 ? Gamepad.all[0] : InputSystem.devices[0];
+    InputDevice DefaultInputDevice => Gamepad.all.Count > 0 ? (Gamepad.current ?? Gamepad.all[0]) : (InputSystem.devices.Count > 0 ? InputSystem.devices[0] : null);
 
     void Awake()
     {
@@ -52,13 +53,16 @@ public class InputManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             // Add function to event
             InputState.onChange += OnInputStateChange;
+            InputSystem.onDeviceChange += OnDeviceChange;
         }
     }
 
     void OnDestroy()
     {
         // Remove function from event
-        if (_instance == this) InputState.onChange -= OnInputStateChange;
+        if (_instance != this) return;
+        InputState.onChange -= OnInputStateChange;
+        InputSystem.onDeviceChange -= OnDeviceChange;
     }
 
     void Start() => _lastUsedDevice ??= DefaultInputDevice;
@@ -69,4 +73,17 @@ public class InputManager : MonoBehaviour
     // do it when eventPtr is null, this happens constantly for all connected devices
     // when they aren't used, so we don't want that to affect the last used device
     void OnInputStateChange(InputDevice device, InputEventPtr eventPtr) => _lastUsedDevice = _lastUsedDevice != null && eventPtr != null ? device : _lastUsedDevice;
+
+    void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange)
+    {
+        // Don't want to do anything if the last device is null. This can happen at
+        // the start which in that case we would want to use the default device. Also
+        // if we remove a device we need to test if the device id matches which won't
+        // work if last device is null
+        if (_lastUsedDevice == null) return;
+        if (deviceChange == InputDeviceChange.Added || deviceChange == InputDeviceChange.Reconnected)
+            _lastUsedDevice = device; // A device was added or reconnected
+        else if ((deviceChange == InputDeviceChange.Removed || deviceChange == InputDeviceChange.Disconnected || deviceChange == InputDeviceChange.Disabled) && _lastUsedDevice.deviceId == device.deviceId)
+            _lastUsedDevice = DefaultInputDevice; // The last used device was removed/disconnected/disabled
+    }
 }
