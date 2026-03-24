@@ -37,8 +37,12 @@ public class DialogueManager : MonoBehaviour
 
     public void LoadNextItem()
     {
-        if (CurrentDialogueIcon) Resources.UnloadAsset(CurrentDialogueIcon);
-        CurrentDialogueItem = dialogueQueue.Dequeue();
-        CurrentDialogueIcon = DialogueIconLoader.Instance.LoadIcon(CurrentDialogueItem);
+        DialogueItem nextDialogueItem = dialogueQueue.Dequeue();
+        if (CurrentDialogueItem.icon != nextDialogueItem.icon)
+        {
+            if (CurrentDialogueIcon) Resources.UnloadAsset(CurrentDialogueIcon);
+            CurrentDialogueIcon = Resources.Load<Sprite>(nextDialogueItem.icon); // Make sure to write icons correctly
+        }
+        CurrentDialogueItem = nextDialogueItem;
     }
 }
