@@ -1,10 +1,12 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Tutorial",
+			"name": "Generic Controller Jump Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
+			"speakerName": "Tutorial",
 			"text": "Press <sprite=\"GenericControllerSprites/Positional_Prompts_Down\" name=\"Positional_Prompts_Down\"> to jump",
-			"fontSize": 24
+			"fontSize": 24,
+			"charactersPerSecond": -1
 		}
 	]
 }

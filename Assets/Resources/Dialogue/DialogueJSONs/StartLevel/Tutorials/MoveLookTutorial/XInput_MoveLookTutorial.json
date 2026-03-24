@@ -1,10 +1,12 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Tutorial",
+			"name": "XInput Move and Look Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
+			"speakerName": "Tutorial",
 			"text": "Use <sprite=\"XInputSprites/XboxSeriesX_Left_Stick\" name=\"XboxSeriesX_Left_Stick\"> to move and <sprite=\"XInputSprites/XboxSeriesX_Right_Stick\" name=\"XboxSeriesX_Right_Stick\"> to rotate the camera",
-			"fontSize": 24
+			"fontSize": 24,
+			"charactersPerSecond": -1
 		}
 	]
 }

@@ -1,10 +1,12 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Tutorial",
+			"name": "Keyboard and Mouse Crouch Toggle Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
+			"speakerName": "Tutorial",
 			"text": "Press <sprite=\"KeyboardAndMouseSprites/C_Key_Dark\" name=\"C_Key_Dark\"> to toggle crouch",
-			"fontSize": 24
+			"fontSize": 24,
+			"charactersPerSecond": -1
 		}
 	]
 }

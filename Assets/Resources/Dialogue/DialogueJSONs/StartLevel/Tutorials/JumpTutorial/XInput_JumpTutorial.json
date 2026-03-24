@@ -1,10 +1,12 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Tutorial",
+			"name": "XInput Jump Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
+			"speakerName": "Tutorial",
 			"text": "Press <sprite=\"XInputSprites/XboxSeriesX_A\" name=\"XboxSeriesX_A\"> to jump",
-			"fontSize": 24
+			"fontSize": 24,
+			"charactersPerSecond": -1
 		}
 	]
 }

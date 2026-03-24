@@ -1,10 +1,12 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Tutorial",
+			"name": "XInput Crouch Hold Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
+			"speakerName": "Tutorial",
 			"text": "Press and hold <sprite=\"XInputSprites/XboxSeriesX_B\" name=\"XboxSeriesX_B\"> to crouch",
-			"fontSize": 24
+			"fontSize": 24,
+			"charactersPerSecond": -1
 		}
 	]
 }

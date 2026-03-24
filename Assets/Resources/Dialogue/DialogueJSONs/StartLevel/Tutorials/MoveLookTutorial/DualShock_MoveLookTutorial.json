@@ -1,10 +1,12 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Tutorial",
+			"name": "DualShock Move and Look Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
+			"speakerName": "Tutorial",
 			"text": "Use <sprite=\"DualShockSprites/PS5_Left_Stick\" name=\"PS5_Left_Stick\"> to move and <sprite=\"DualShockSprites/PS5_Right_Stick\" name=\"PS5_Right_Stick\"> to rotate the camera",
-			"fontSize": 24
+			"fontSize": 24,
+			"charactersPerSecond": -1
 		}
 	]
 }
