@@ -3,7 +3,7 @@
 		{
 			"name": "Tutorial",
 			"icon": "None",
-			"text": "Press B to jump"
+			"text": "Press <sprite="SwitchSprites/Switch_B" name="Switch_B"> to jump"
 		}
 	]
 }

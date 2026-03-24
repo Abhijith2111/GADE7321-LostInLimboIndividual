@@ -3,7 +3,7 @@
 		{
 			"name": "Tutorial",
 			"icon": "None",
-			"text": "Press ○ to crouch"
+			"text": "Press <sprite="DualShockSprites/PS5_Circle" name="PS5_Circle"> to toggle crouch"
 		}
 	]
 }

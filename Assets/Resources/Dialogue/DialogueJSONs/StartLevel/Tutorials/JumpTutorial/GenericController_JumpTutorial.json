@@ -3,7 +3,7 @@
 		{
 			"name": "Tutorial",
 			"icon": "None",
-			"text": "Press Button South to jump"
+			"text": "Press <sprite="GenericControllerSprites/Positional_Prompts_Down" name="Positional_Prompts_Down"> to jump"
 		}
 	]
 }

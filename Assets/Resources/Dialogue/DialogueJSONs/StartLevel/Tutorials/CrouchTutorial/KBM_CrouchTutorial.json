@@ -3,7 +3,7 @@
 		{
 			"name": "Tutorial",
 			"icon": "None",
-			"text": "Press C to crouch"
+			"text": "Press <sprite="KeyboardAndMouseSprites/C_Key_Dark" name="C_Key_Dark"> to toggle crouch"
 		}
 	]
 }

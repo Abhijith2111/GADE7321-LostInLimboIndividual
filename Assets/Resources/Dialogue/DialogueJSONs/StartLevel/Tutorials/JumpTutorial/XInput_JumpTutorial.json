@@ -3,7 +3,7 @@
 		{
 			"name": "Tutorial",
 			"icon": "None",
-			"text": "Press A to jump"
+			"text": "Press <sprite="XInputSprites/XboxSeriesX_A" name="XboxSeriesX_A"> to jump"
 		}
 	]
 }

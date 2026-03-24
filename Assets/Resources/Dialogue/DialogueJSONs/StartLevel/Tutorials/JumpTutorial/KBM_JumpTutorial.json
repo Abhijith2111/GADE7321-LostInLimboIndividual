@@ -3,7 +3,7 @@
 		{
 			"name": "Tutorial",
 			"icon": "None",
-			"text": "Press Space to jump"
+			"text": "Press <sprite="KeyboardAndMouseSprites/Space_Key_Dark" name="Space_Key_Dark"> to jump"
 		}
 	]
 }

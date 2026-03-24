@@ -3,7 +3,7 @@
 		{
 			"name": "Tutorial",
 			"icon": "None",
-			"text": "Press X to jump"
+			"text": "Press <sprite="DualShockSprites/PS5_Cross" name="PS5_Cross"> to jump"
 		}
 	]
 }
