@@ -1,25 +1,22 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Character Doesn't Have Enough Items Line 1",
+			"name": "CharacterNameHere",
 			"icon": "None",
-			"speakerName": "CharacterNameHere",
 			"text": "I don't have all the pieces for the communications device.",
 			"fontSize": 24,
 			"charactersPerSecond": 40
 		},
 		{
-			"name": "Character Doesn't Have Enough Items Line 2",
+			"name": "CharacterNameHere",
 			"icon": "None",
-			"speakerName": "CharacterNameHere",
 			"text": "If I don't have all the pieces then I can't repair the device and I'll never be saved.",
 			"fontSize": 24,
 			"charactersPerSecond": 40
 		},
 		{
-			"name": "Character Doesn't Have Enough Items Line 3",
+			"name": "CharacterNameHere",
 			"icon": "None",
-			"speakerName": "CharacterNameHere",
 			"text": "I need to go back...",
 			"fontSize": 24,
 			"charactersPerSecond": 40

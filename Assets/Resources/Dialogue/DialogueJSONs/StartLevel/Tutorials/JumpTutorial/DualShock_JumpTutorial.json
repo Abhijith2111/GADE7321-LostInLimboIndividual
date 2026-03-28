@@ -1,9 +1,8 @@
 {
 	"dialogueItems": [
 		{
-			"name": "DualShock Jump Tutorial",
+			"name": "Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
-			"speakerName": "Tutorial",
 			"text": "Press <sprite=\"DualShockSprites/PS5_Cross\" name=\"PS5_Cross\"> to jump",
 			"fontSize": 24,
 			"charactersPerSecond": -1

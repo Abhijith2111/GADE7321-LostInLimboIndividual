@@ -1,9 +1,8 @@
 {
 	"dialogueItems": [
 		{
-			"name": "XInput Run Tutorial",
+			"name": "Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
-			"speakerName": "Tutorial",
 			"text": "Press and hold <sprite=\"XInputSprites/XboxSeriesX_Left_Stick_Click\" name=\"XboxSeriesX_Left_Stick_Click\"> to run",
 			"fontSize": 24,
 			"charactersPerSecond": -1

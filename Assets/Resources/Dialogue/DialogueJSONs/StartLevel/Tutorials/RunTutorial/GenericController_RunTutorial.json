@@ -1,9 +1,8 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Generic Controller Run Tutorial",
+			"name": "Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
-			"speakerName": "Tutorial",
 			"text": "Press and hold <sprite=\"GenericControllerSprites/360_Left_Stick_Click\" name=\"360_Left_Stick_Click\"> to run",
 			"fontSize": 24,
 			"charactersPerSecond": -1

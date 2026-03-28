@@ -3,7 +3,6 @@ public class DialogueItem
 {
     public string name;
     public string icon;
-    public string speakerName;
     public string text;
     public int fontSize;
     public int charactersPerSecond;

@@ -1,9 +1,8 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Switch Crouch Toggle Tutorial",
+			"name": "Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
-			"speakerName": "Tutorial",
 			"text": "Press <sprite=\"SwitchSprites/Switch_A\" name=\"Switch_A\"> to toggle crouch",
 			"fontSize": 24,
 			"charactersPerSecond": -1

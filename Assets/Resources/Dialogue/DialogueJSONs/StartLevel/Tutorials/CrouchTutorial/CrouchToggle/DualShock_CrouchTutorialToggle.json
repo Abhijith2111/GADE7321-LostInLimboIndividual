@@ -1,9 +1,8 @@
 {
 	"dialogueItems": [
 		{
-			"name": "DualShock Crouch Toggle Tutorial",
+			"name": "Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
-			"speakerName": "Tutorial",
 			"text": "Press <sprite=\"DualShockSprites/PS5_Circle\" name=\"PS5_Circle\"> to toggle crouch",
 			"fontSize": 24,
 			"charactersPerSecond": -1

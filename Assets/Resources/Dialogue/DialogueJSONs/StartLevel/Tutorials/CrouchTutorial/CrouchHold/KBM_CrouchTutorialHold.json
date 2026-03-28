@@ -1,9 +1,8 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Keyboard and Mouse Crouch Hold Tutorial",
+			"name": "Tutorial",
 			"icon": "Dialogue/DialogueIcons/info_icon",
-			"speakerName": "Tutorial",
 			"text": "Press and hold <sprite=\"KeyboardAndMouseSprites/C_Key_Dark\" name=\"C_Key_Dark\"> to crouch",
 			"fontSize": 24,
 			"charactersPerSecond": -1

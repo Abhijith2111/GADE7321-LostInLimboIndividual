@@ -45,6 +45,7 @@ public class DialogueDisplayer : MonoBehaviour
     void OnDisable()
     {
         // TODO: Allow character to move and look again
+        // TODO: Somehow I need to do a scene transition later or end the scene for level end dialogue idk
     }
 
     void Update()
@@ -85,7 +86,7 @@ public class DialogueDisplayer : MonoBehaviour
         }
         nextButton.gameObject.SetActive(false);
         dialogueIcon.sprite = DialogueManager.Instance.CurrentDialogueIcon;
-        speakerName.text = currentItem.speakerName;
+        speakerName.text = currentItem.name;
         dialogueText.text = "";
         dialogueText.fontSize = currentItem.fontSize;
         isFinishedWithCurrentItem = false;
