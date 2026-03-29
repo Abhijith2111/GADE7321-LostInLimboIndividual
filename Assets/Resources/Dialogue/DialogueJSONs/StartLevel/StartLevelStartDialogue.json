@@ -23,7 +23,7 @@
 		},
 		{
 			"name": "Comms Device",
-			"icon": "None",
+			"icon": "comms",
 			"text": "<i><STATIC></i>",
 			"fontSize": 24,
 			"charactersPerSecond": -1
@@ -44,7 +44,7 @@
 		},
 		{
 			"name": "Comms Device",
-			"icon": "None",
+			"icon": "comms",
 			"text": "<i><STATIC></i>",
 			"fontSize": 24,
 			"charactersPerSecond": -1
@@ -65,7 +65,7 @@
 		},
 		{
 			"name": "Comms Device",
-			"icon": "None",
+			"icon": "comms",
 			"text": "<i><STATIC></i>",
 			"fontSize": 24,
 			"charactersPerSecond": -1
