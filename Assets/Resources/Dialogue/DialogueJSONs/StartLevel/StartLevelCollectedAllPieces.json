@@ -9,7 +9,7 @@
 		},
 		{
 			"name": "Merzp",
-			"icon": "None",
+			"icon": "player",
 			"text": "Finally I have it all.",
 			"fontSize": 24,
 			"charactersPerSecond": 40
@@ -23,7 +23,7 @@
 		},
 		{
 			"name": "Merzp",
-			"icon": "None",
+			"icon": "player",
 			"text": "Does anyone copy?",
 			"fontSize": 24,
 			"charactersPerSecond": 40
@@ -44,7 +44,7 @@
 		},
 		{
 			"name": "Merzp",
-			"icon": "None",
+			"icon": "player",
 			"text": "Hello, hello? Can you hear me?",
 			"fontSize": 24,
 			"charactersPerSecond": 40
@@ -65,7 +65,7 @@
 		},
 		{
 			"name": "Merzp",
-			"icon": "None",
+			"icon": "player",
 			"text": "I need a signal booster, but I need…",
 			"fontSize": 24,
 			"charactersPerSecond": 40
@@ -79,7 +79,7 @@
 		},
 		{
 			"name": "Merzp",
-			"icon": "None",
+			"icon": "player",
 			"text": "Great Morpsalon, land! I can build a signal booster there!",
 			"fontSize": 24,
 			"charactersPerSecond": 40
