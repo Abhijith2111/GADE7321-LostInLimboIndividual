@@ -2,7 +2,7 @@
 	"dialogueItems": [
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Merzp finally collects all pieces after some intense parkour</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -16,7 +16,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Merzp builds the comm device and tries once more</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -30,7 +30,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>There is a faint whisper through the static</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -51,7 +51,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>More unintelligible speech is pushed through</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -72,7 +72,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>She looks out into the distance and sees land</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -86,7 +86,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Merzp ventures to the land by tearing apart her ship to get there</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60

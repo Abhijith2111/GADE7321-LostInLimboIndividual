@@ -2,7 +2,7 @@
 	"dialogueItems": [
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Alien crashes into vast ocean</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -30,7 +30,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Static is her only reply</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -51,7 +51,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Static continues to keep her company</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -72,7 +72,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>The air is filled the cold reply of static once more</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -86,7 +86,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Merzp checks her comms device and sees it is missing some components</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -100,7 +100,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Merzp assesses her surroundings and sees a piece of her comms device out in the ocean</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -114,7 +114,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Merzp carefully scans the water with her suits built in scanner and discovers this water is no water at all as it has a PH level of 1</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -128,7 +128,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "None",
+			"icon": "story",
 			"text": "<i>Merzp breaks pieces of the inside of her ship to throw into the ocean for her to jump to her other pieces</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
