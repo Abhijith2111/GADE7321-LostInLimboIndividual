@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(MeshCollider))]
 public class WaterCollision : MonoBehaviour
 {
     [SerializeField]
@@ -11,86 +10,62 @@ public class WaterCollision : MonoBehaviour
     float size = 10f;
     [SerializeField]
     ComputeShader waterCompShader;
+    [SerializeField, Range(1, 10)]
+    int doEveryNthFrame = 1;
 
-    MeshCollider meshCollider;
-
-    Mesh mesh;
-    ComputeBuffer vertexBuffer;
-    Vector3[] vertexBufferData;
+    ComputeBuffer vectorBuffer;
+    Vector3[] vectorBufferData;
     int kernelIndex;
-    Vector3[] baseVertices;
-    Vector3[] modifiedVertices;
+    Vector3[] baseVectors;
+    Vector3[] modifiedVectors;
+    SphereCollider[] collisionPoints;
 
     void Awake()
     {
-        mesh = new Mesh();
-        GenerateMesh();
-        baseVertices = new Vector3[mesh.vertices.Length];
-        mesh.vertices.CopyTo(baseVertices, 0);
-        modifiedVertices = new Vector3[baseVertices.Length];
+        baseVectors = GeneratePoints();
+        modifiedVectors = new Vector3[baseVectors.Length];
+        collisionPoints = new SphereCollider[baseVectors.Length];
+        GenerateCollisionPoints(ref collisionPoints, ref baseVectors);
         kernelIndex = waterCompShader.FindKernel("CSMain");
-        if (vertexBuffer == null) InitBuffer();
-        meshCollider = GetComponent<MeshCollider>();
-        meshCollider.sharedMesh = mesh;
+        if (vectorBuffer == null) InitBuffer();
     }
 
     void OnDisable()
     {
-        vertexBuffer?.Release();
-        vertexBuffer = null;
+        vectorBuffer?.Release();
+        vectorBuffer = null;
     }
 
     void OnEnable()
     {
-        if (baseVertices != null && vertexBuffer == null) InitBuffer();
+        if (baseVectors != null && vectorBuffer == null) InitBuffer();
     }
 
     void OnDestroy()
     {
-        vertexBuffer?.Release();
-        vertexBuffer = null;
-        Destroy(mesh);
+        vectorBuffer?.Release();
+        vectorBuffer = null;
     }
 
     void LateUpdate()
     {
+        if (Time.frameCount % doEveryNthFrame != 0) return;
         transform.position = new Vector3(playerTransform.position.x, 0f, playerTransform.position.z);
-        baseVertices.CopyTo(vertexBufferData, 0);
-        vertexBuffer.SetData(vertexBufferData);
+        baseVectors.CopyTo(vectorBufferData, 0);
+        vectorBuffer.SetData(vectorBufferData);
         waterCompShader.SetVector("WorldOffset", transform.position);
         waterCompShader.SetFloat("WaveAmplitude", WaterWaveManager.Instance.WaveAmplitude);
         waterCompShader.SetFloat("WaveSpeed", WaterWaveManager.Instance.WaveSpeed);
         waterCompShader.SetFloat("WaveFrequency", WaterWaveManager.Instance.WaveFrequency);
         waterCompShader.SetFloat("WaterTime", WaterWaveManager.Instance.WaterTime);
-        int threadGroups = Mathf.CeilToInt(baseVertices.Length / 64f);
+        int threadGroups = Mathf.CeilToInt(baseVectors.Length / 64f);
         waterCompShader.Dispatch(kernelIndex, threadGroups, 1, 1);
-        vertexBuffer.GetData(vertexBufferData);
-        vertexBufferData.CopyTo(modifiedVertices, 0);
-        mesh.vertices = modifiedVertices;
-        meshCollider.sharedMesh = mesh;
+        vectorBuffer.GetData(vectorBufferData);
+        vectorBufferData.CopyTo(modifiedVectors, 0);
+        UpdateCollisionPointsPositions(ref collisionPoints, ref modifiedVectors);
     }
 
-    void InitBuffer()
-    {
-        vertexBuffer?.Release();
-        vertexBufferData = new Vector3[baseVertices.Length];
-        baseVertices.CopyTo(vertexBufferData, 0);
-        vertexBuffer = new ComputeBuffer(baseVertices.Length, 3 * sizeof(float));
-        vertexBuffer.SetData(vertexBufferData);
-        waterCompShader.SetBuffer(kernelIndex, "VertexBuffer", vertexBuffer);
-        waterCompShader.SetInt("VertexCount", baseVertices.Length);
-    }
-
-    void GenerateMesh()
-    {
-        Vector3[] vertices = GenerateVertices();
-        int[] triangles = GenerateTriangles();
-        mesh.Clear();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-    }
-
-    Vector3[] GenerateVertices()
+    Vector3[] GeneratePoints()
     {
         Vector3[] vertices = new Vector3[resolution * resolution];
         for (int z = 0; z < resolution; ++z)
@@ -106,24 +81,33 @@ public class WaterCollision : MonoBehaviour
         return vertices;
     }
 
-    int[] GenerateTriangles()
+    void InitBuffer()
     {
-        int[] triangles = new int[(resolution - 1) * (resolution - 1) * 6];
-        int triangleIndex = 0;
-        for (int i = 0; i < resolution - 1; ++i)
-        {
-            for (int j = 0; j < resolution - 1; ++j)
-            {
-                int baseIndex = i * resolution + j;
-                triangles[triangleIndex++] = baseIndex;
-                triangles[triangleIndex++] = baseIndex + resolution + 1;
-                triangles[triangleIndex++] = baseIndex + 1;
+        vectorBuffer?.Release();
+        vectorBufferData = new Vector3[baseVectors.Length];
+        baseVectors.CopyTo(vectorBufferData, 0);
+        vectorBuffer = new ComputeBuffer(baseVectors.Length, 3 * sizeof(float));
+        vectorBuffer.SetData(vectorBufferData);
+        waterCompShader.SetBuffer(kernelIndex, "VectorBuffer", vectorBuffer);
+        waterCompShader.SetInt("VectorCount", baseVectors.Length);
+    }
 
-                triangles[triangleIndex++] = baseIndex;
-                triangles[triangleIndex++] = baseIndex + resolution;
-                triangles[triangleIndex++] = baseIndex + resolution + 1;
-            }
+    void GenerateCollisionPoints(ref SphereCollider[] colliders, ref Vector3[] points)
+    {
+        for (int i = 0; i < colliders.Length; ++i)
+        {
+            colliders[i] = gameObject.AddComponent<SphereCollider>();
+            colliders[i].center = points[i];
+            colliders[i].radius = size / resolution / 2;
+            colliders[i].isTrigger = true;
         }
-        return triangles;
+    }
+
+    void UpdateCollisionPointsPositions(ref SphereCollider[] colliders, ref Vector3[] newPositions)
+    {
+        for (int i = 0; i < colliders.Length; ++i)
+        {
+            colliders[i].center = newPositions[i];
+        }
     }
 }

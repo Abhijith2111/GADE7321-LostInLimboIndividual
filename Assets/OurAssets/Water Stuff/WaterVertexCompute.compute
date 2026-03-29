@@ -1,7 +1,7 @@
 #pragma kernel CSMain
 
-RWStructuredBuffer<float3> VertexBuffer;
-uint VertexCount;
+RWStructuredBuffer<float3> VectorBuffer;
+uint VectorCount;
 
 float3 WorldOffset;
 
@@ -13,10 +13,10 @@ float WaterTime;
 [numthreads(64,1,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
-    if (id.x >= VertexCount) return;
-    float3 vertex = VertexBuffer[id.x];
-    float3 vertexWP = vertex + WorldOffset;
-    vertexWP.y = sin(vertexWP.x * WaveFrequency + vertexWP.z * WaveFrequency + WaterTime * WaveSpeed) * WaveAmplitude;
-    vertex.y = vertexWP.y - WorldOffset.y;
-    VertexBuffer[id.x] = vertex;
+    if (id.x >= VectorCount) return;
+    float3 vec = VectorBuffer[id.x];
+    float3 vecWP = vec + WorldOffset;
+    vecWP.y = sin(vecWP.x * WaveFrequency + vecWP.z * WaveFrequency + WaterTime * WaveSpeed) * WaveAmplitude;
+    vec.y = vecWP.y - WorldOffset.y;
+    VectorBuffer[id.x] = vec;
 }
