@@ -12,6 +12,8 @@ public class WaterCollision : MonoBehaviour
     [SerializeField]
     ComputeShader waterCompShader;
 
+    MeshCollider meshCollider;
+
     Mesh mesh;
     ComputeBuffer vertexBuffer;
     Vector3[] vertexBufferData;
@@ -27,8 +29,9 @@ public class WaterCollision : MonoBehaviour
         mesh.vertices.CopyTo(baseVertices, 0);
         modifiedVertices = new Vector3[baseVertices.Length];
         kernelIndex = waterCompShader.FindKernel("CSMain");
-        InitBuffer();
-        GetComponent<MeshCollider>().sharedMesh = mesh;
+        if (vertexBuffer == null) InitBuffer();
+        meshCollider = GetComponent<MeshCollider>();
+        meshCollider.sharedMesh = mesh;
     }
 
     void OnDisable()
@@ -37,10 +40,16 @@ public class WaterCollision : MonoBehaviour
         vertexBuffer = null;
     }
 
+    void OnEnable()
+    {
+        if (baseVertices != null && vertexBuffer == null) InitBuffer();
+    }
+
     void OnDestroy()
     {
         vertexBuffer?.Release();
         vertexBuffer = null;
+        Destroy(mesh);
     }
 
     void LateUpdate()
@@ -58,7 +67,7 @@ public class WaterCollision : MonoBehaviour
         vertexBuffer.GetData(vertexBufferData);
         vertexBufferData.CopyTo(modifiedVertices, 0);
         mesh.vertices = modifiedVertices;
-        GetComponent<MeshCollider>().sharedMesh = mesh;
+        meshCollider.sharedMesh = mesh;
     }
 
     void InitBuffer()
