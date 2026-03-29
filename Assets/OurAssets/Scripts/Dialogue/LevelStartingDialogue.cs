@@ -7,17 +7,11 @@ public class LevelStartingDialogue : MonoBehaviour
     // doesn't need to be accessed by other classes
     static LevelStartingDialogue Instance { get; set; }
 
-    DialogueHolder holder;
-
     void Awake()
     {
         if (Instance && Instance != this) Destroy(gameObject);
-        else
-        {
-            Instance = this;
-            holder = GetComponent<DialogueHolder>();
-        }
+        else Instance = this;
     }
 
-    void Start() => holder.StartDialogue();
+    void Start() => GetComponent<DialogueHolder>().StartDialogue();
 }

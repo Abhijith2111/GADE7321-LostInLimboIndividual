@@ -27,6 +27,6 @@ public class ControlsTutorialDialogueTrigger : DialogueTrigger
         else if (lastUsedDevice is DualShockGamepad) dialogueIndex = dualShockDialogueIndex;
         else if (lastUsedDevice is SwitchProControllerHID) dialogueIndex = switchDialogueIndex;
         else dialogueIndex = genericControllerDialogueIndex;
-        holder.StartDialogue(dialogueIndex);
+        GetComponent<DialogueHolder>().StartDialogue(dialogueIndex);
     }
 }

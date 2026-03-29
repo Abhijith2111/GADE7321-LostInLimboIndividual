@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))] // Ensure attached to game object with a collider
 public class Checkpoint : MonoBehaviour
 {
     [SerializeField]
@@ -14,6 +15,8 @@ public class Checkpoint : MonoBehaviour
     public bool HasBeenCaptured { get; set; }
     public int Lives { get; set; }
     public int Score { get; set; }
+
+    void OnValidate() => GetComponent<Collider>().isTrigger = true; // Ensure collider is a trigger
 
     void Start()
     {
