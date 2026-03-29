@@ -17,6 +17,8 @@ public class DialogueDisplayer : MonoBehaviour
     [SerializeField]
     Button skipAllButton;
 
+    PlayerInputScript playerInput;
+
     DialogueItem currentItem;
 
     bool isFinishedWithCurrentItem;
@@ -28,6 +30,7 @@ public class DialogueDisplayer : MonoBehaviour
 
     void Awake()
     {
+        playerInput = FindFirstObjectByType<PlayerInputScript>();
         nextButton.onClick.AddListener(
             () => {
                 DialogueManager.Instance.LoadNextItem();
@@ -87,7 +90,7 @@ public class DialogueDisplayer : MonoBehaviour
 
     public void StartDisplayingDialogue(System.Action callbackFunction = null)
     {
-        // TODO: Stop character from moving and looking
+        playerInput?.DisableCharacterInput();
         gameObject.SetActive(true);
         RetrieveCurrentDialogue();
         endCallbackFunction = callbackFunction;
@@ -95,7 +98,7 @@ public class DialogueDisplayer : MonoBehaviour
 
     void StopDisplayingDialogue()
     {
-        // TODO: Allow character to move and look again
+        playerInput?.EnableCharacterInput();
         endCallbackFunction?.Invoke();
         endCallbackFunction = null; // Clear the callback function (is this even needed since we set it to null on start? Idk I'll leave it to be safe)
         gameObject.SetActive(false);

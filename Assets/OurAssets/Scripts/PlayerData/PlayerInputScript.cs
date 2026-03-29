@@ -1,6 +1,26 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerLook))]
 public class PlayerInputScript : MonoBehaviour
 {
-    // David - Stub is here until I know it's safe to delete the script entirely
+    PlayerMovement pM;
+    PlayerLook pL;
+
+    void Awake()
+    {
+        pM = GetComponent<PlayerMovement>();
+        pL = GetComponent<PlayerLook>();
+    }
+
+    public void EnableCharacterInput()
+    {
+        pM.EnableMovement();
+        pL.EnableLook();
+    }
+
+    public void DisableCharacterInput()
+    {
+        pM.DisableMovement();
+        pL.DisableLook();
+    }
 }

@@ -29,21 +29,18 @@ public class PlayerLook : MonoBehaviour
     float pitch = 0f;
     float yaw = 0f;
 
+    bool canLook = true;
+
     Vector2 LookInput => InputSystem.actions.FindAction("Look").ReadValue<Vector2>();
 
     // Last used device for looking
     InputDevice LookDevice => InputSystem.actions.FindAction("Look").activeControl?.device;
 
-    void Awake()
-    {
-        // This doesn't seem to be doing anything...
-        // Did Unity change this?
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+    void Awake() => EnableLook();
 
     void Update()
     {
+        if (!canLook) return;
         float mX = LookInput.x * LookInput.x < deadZone * deadZone ? 0f : LookInput.x;
         float mY = LookInput.y * LookInput.y < deadZone * deadZone ? 0f : LookInput.y;
         float hSens = LookDevice is Gamepad ? controllerHorizontalSensitivity * Time.deltaTime : mouseHorizontalSensitivity;
@@ -51,5 +48,21 @@ public class PlayerLook : MonoBehaviour
         yaw += mX * hSens;
         pitch = Mathf.Clamp(pitch - mY * vSens, minVerticalAngle, maxVerticalAngle);
         if (cameraTarget != null) cameraTarget.localRotation = Quaternion.Euler(pitch, yaw, 0f);
+    }
+
+    public void EnableLook()
+    {
+        canLook = true;
+        // This doesn't seem to be doing anything...
+        // Did Unity change this?
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void DisableLook()
+    {
+        canLook = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 }

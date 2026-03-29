@@ -94,13 +94,13 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movementDirectionXZ = Vector3.ClampMagnitude(forward * zIn + right * xIn, 1f);
         // David - merged curSpeedX and curSpeedZ into curSpeedXZ
         Vector3 curSpeedXZ = Vector3.zero;
-        if (movementDirectionXZ.sqrMagnitude >= deadZone * deadZone)
+        if (canMove && movementDirectionXZ.sqrMagnitude >= deadZone * deadZone)
         {
             // David - Rotate character to movement direction
             Quaternion targetRotation = Quaternion.LookRotation(movementDirectionXZ);
             float currentSpeedMultiplier = isCrouching ? crouchSpeed : (isRunning ? runSpeed : walkSpeed); // David - This is so we don't hard code the values when we stop crouching
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Mathf.Clamp01((isRunning ? runTurnSpeed : turnSpeed) * Time.deltaTime));
-            curSpeedXZ = canMove ? movementDirectionXZ * currentSpeedMultiplier : Vector3.zero;
+            curSpeedXZ = movementDirectionXZ * currentSpeedMultiplier;
         }
 
         // David - Got rid of movementDirectionY because we can just use
@@ -157,6 +157,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (transform.parent == platform) transform.parent = startingParent;
     }
+
+    // David - Added ability to be able to enable input (when dialogue ends)
+    public void EnableMovement() => canMove = true;
+
+    // David - Added ability to be able to disable input (when dialogue starts)
+    public void DisableMovement() => canMove = false;
 
     // got rid of floating issue.
 }

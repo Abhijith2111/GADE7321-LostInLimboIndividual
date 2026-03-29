@@ -26,6 +26,6 @@ public class CollectableManager : MonoBehaviour
 
     public void CollectCollectable()
     {
-        if (++currentNumCollectables < TotalCollectables) holder.StartDialogue(); 
+        if (++currentNumCollectables >= TotalCollectables) holder.StartDialogue(); 
     }
 }

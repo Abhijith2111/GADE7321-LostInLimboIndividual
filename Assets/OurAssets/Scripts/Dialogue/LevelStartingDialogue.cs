@@ -13,5 +13,8 @@ public class LevelStartingDialogue : MonoBehaviour
         else Instance = this;
     }
 
-    void Start() => GetComponent<DialogueHolder>().StartDialogue();
+    void Start()
+    {
+        GetComponent<DialogueHolder>().StartDialogue();
+    }
 }
