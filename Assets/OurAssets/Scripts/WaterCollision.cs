@@ -149,6 +149,6 @@ public struct UpdateCollidersJob : IJobParallelForTransform
 
     public void Execute(int index, TransformAccess transform)
     {
-        transform.position = newPositionsArray[index];
+        transform.localPosition = newPositionsArray[index];
     }
 }
