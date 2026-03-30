@@ -7,6 +7,7 @@ uint VectorCount;
 float Size;
 
 float3 WorldOffset;
+float YOffset;
 
 float WaveAmplitude;
 float WaveSpeed;
@@ -32,6 +33,6 @@ void UpdateWave(uint3 id : SV_DispatchThreadID)
     float3 vec = VectorBuffer[id.x];
     float3 vecWP = vec + WorldOffset;
     vecWP.y = sin(vecWP.x * WaveFrequency + vecWP.z * WaveFrequency + WaterTime * WaveSpeed) * WaveAmplitude;
-    vec.y = vecWP.y - WorldOffset.y;
+    vec.y = vecWP.y - WorldOffset.y - YOffset;
     VectorBuffer[id.x] = vec;
 }

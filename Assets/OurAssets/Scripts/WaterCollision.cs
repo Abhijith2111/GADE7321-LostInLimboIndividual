@@ -124,7 +124,7 @@ public class WaterCollision : DeathBarrier
             go.transform.parent = transform;
             go.transform.localPosition = points[i];
             SphereCollider sc = go.AddComponent<SphereCollider>();
-            sc.radius = size / resolution / 2;
+            sc.radius = size / resolution / 2f;
             sc.isTrigger = true;
             transforms[i] = go.transform;
         }
@@ -135,6 +135,7 @@ public class WaterCollision : DeathBarrier
         initialPoints.CopyTo(vectorBufferData, 0);
         vectorBuffer.SetData(vectorBufferData);
         waterCompShader.SetVector("WorldOffset", transform.position);
+        waterCompShader.SetFloat("YOffset", size / resolution / 2f);
         waterCompShader.SetFloat("WaveAmplitude", WaterWaveManager.Instance.WaveAmplitude);
         waterCompShader.SetFloat("WaveSpeed", WaterWaveManager.Instance.WaveSpeed);
         waterCompShader.SetFloat("WaveFrequency", WaterWaveManager.Instance.WaveFrequency);
