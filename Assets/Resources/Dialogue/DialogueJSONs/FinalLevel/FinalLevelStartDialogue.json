@@ -1,0 +1,53 @@
+{
+	"dialogueItems": [
+		{
+			"name": "Story",
+			"icon": "none",
+			"text": "<i>Merzp, now close to the peak, receives a transmission request from Aldrich</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 60
+		},
+		{
+			"name": "Aldrich Through the Comms Device",
+			"icon": "comms",
+			"text": "<i>Merzp, come in Merzp, over.</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Merzp",
+			"icon": "player",
+			"text": "Merzp, come in Merzp, over.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Aldrich Through the Comms Device",
+			"icon": "comms",
+			"text": "<i>Merzp, we miscalculated and you need something to get to the ships door, do you have anything around you, you could use as a sort of ladder?</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Story",
+			"icon": "none",
+			"text": "<i>Merzp assess her surroundings</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 60
+		},
+		{
+			"name": "Merzp",
+			"icon": "player",
+			"text": "Yes, there is commander, I can use these rocks that are rather sticky as a way to make a step stool for me, over.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Aldrich Through the Comms Device",
+			"icon": "comms",
+			"text": "<i>Great! Use those to reach us then. Over and out.</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		}
+	]
+}

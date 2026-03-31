@@ -1,0 +1,116 @@
+{
+	"dialogueItems": [
+		{
+			"name": "Merzp",
+			"icon": "player",
+			"text": "Finally, let me activate the tracker and…",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Story",
+			"icon": "none",
+			"text": "<i>A faint light shimmers on the tracker</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 60
+		},
+		{
+			"name": "Merzp",
+			"icon": "player",
+			"text": "Yes it works.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Story",
+			"icon": "none",
+			"text": "<i>Merzp gets out her comm device</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 60
+		},
+		{
+			"name": "Merzp",
+			"icon": "player",
+			"text": "Commander, come in commander. The tracker is live. I repeat the tracker is live, over.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Aldrich Through the Comms Device",
+			"icon": "comms",
+			"text": "<i>Thank gorth you did it. The higher ups thought you were dead and almost cancelled the search party, over.</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Story",
+			"icon": "none",
+			"text": "<i>Merzp, too stunned to say anything pushes through her pain and replies</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 60
+		},
+		{
+			"name": "Merzp",
+			"icon": "player",
+			"text": "At least it is working, did you get a lock on my location as yet, over.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Aldrich Through the Comms Device",
+			"icon": "comms",
+			"text": "<i>Yes, we did and it appears there is a mountain near you. Can you see it Merzp? Over.</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Story",
+			"icon": "none",
+			"text": "<i>Merzp looks at the mountain</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 60
+		},
+		{
+			"name": "Merzp",
+			"icon": "player",
+			"text": "Yes commander, I can. What of it? Over.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Aldrich Through the Comms Device",
+			"icon": "comms",
+			"text": "<i>That appears to be the safest place to come and rescue you as it appears there is no life forms there and there is a large enough area for the ship to land. Are you ready to get there? Over.</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Story",
+			"icon": "none",
+			"text": "<i>Merzp stares at the mountain</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 60
+		},
+		{
+			"name": "Merzp",
+			"icon": "player",
+			"text": "I will meet the team there commander, over.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Aldrich Through the Comms Device",
+			"icon": "comms",
+			"text": "<i>See you there Merzp, over and out.</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Story",
+			"icon": "none",
+			"text": "<i>Merzp makes her way to the peak of the mountain</i>",
+			"fontSize": 24,
+			"charactersPerSecond": 60
+		}
+	]
+}
