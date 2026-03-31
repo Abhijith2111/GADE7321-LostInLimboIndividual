@@ -19,6 +19,8 @@ public class EndDialogueTrigger : DialogueTrigger
     {
         Debug.Assert(CollectableManager.Instance, "CollectableManger must exist in the scene");
         if (!other.CompareTag("Player") || !EndConditionSingletonsAreValid) return;
+        other.GetComponent<PlayerInputScript>().DisableCharacterInput();
+        other.gameObject.transform.position = transform.position;
         if (EndConditionsAreMet) GetComponent<DialogueHolder>().StartDialogue(endDialogue, EndOfLevelFunction);
         else
         {
