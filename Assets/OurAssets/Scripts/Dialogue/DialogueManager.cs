@@ -52,7 +52,8 @@ public class DialogueManager : MonoBehaviour
         if (CurrentDialogueItem == null || CurrentDialogueItem.icon != nextDialogueItem.icon)
         {
             if (CurrentDialogueIcon) Resources.UnloadAsset(CurrentDialogueIcon);
-            CurrentDialogueIcon = Resources.Load<Sprite>(nextDialogueItem.icon); // Make sure to write icons correctly
+            if(!nextDialogueItem.icon.Equals("none", System.StringComparison.OrdinalIgnoreCase)) // Don't try and load icon if icon is none
+                CurrentDialogueIcon = Resources.Load<Sprite>(nextDialogueItem.icon); // Make sure to write icons correctly
         }
         CurrentDialogueItem = nextDialogueItem;
     }

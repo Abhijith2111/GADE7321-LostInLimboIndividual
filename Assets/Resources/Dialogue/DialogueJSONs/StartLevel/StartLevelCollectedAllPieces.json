@@ -1,13 +1,6 @@
 {
 	"dialogueItems": [
 		{
-			"name": "Story",
-			"icon": "story",
-			"text": "<i>Merzp finally collects all pieces after some intense parkour</i>",
-			"fontSize": 24,
-			"charactersPerSecond": 60
-		},
-		{
 			"name": "Merzp",
 			"icon": "player",
 			"text": "Finally I have it all.",
@@ -16,7 +9,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "story",
+			"icon": "none",
 			"text": "<i>Merzp builds the comm device and tries once more</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -30,7 +23,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "story",
+			"icon": "none",
 			"text": "<i>There is a faint whisper through the static</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -51,7 +44,7 @@
 		},
 		{
 			"name": "Story",
-			"icon": "story",
+			"icon": "none",
 			"text": "<i>More unintelligible speech is pushed through</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -66,13 +59,13 @@
 		{
 			"name": "Merzp",
 			"icon": "player",
-			"text": "I need a signal booster, but I need…",
+			"text": "I need better signal, but where could I…",
 			"fontSize": 24,
 			"charactersPerSecond": 40
 		},
 		{
 			"name": "Story",
-			"icon": "story",
+			"icon": "none",
 			"text": "<i>She looks out into the distance and sees land</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
@@ -80,13 +73,13 @@
 		{
 			"name": "Merzp",
 			"icon": "player",
-			"text": "Great Morpsalon, land! I can build a signal booster there!",
+			"text": "Great Morpsalon, land! I can get better signal there!",
 			"fontSize": 24,
 			"charactersPerSecond": 40
 		},
 		{
 			"name": "Story",
-			"icon": "story",
+			"icon": "none",
 			"text": "<i>Merzp ventures to the land by tearing apart her ship to get there</i>",
 			"fontSize": 24,
 			"charactersPerSecond": 60
