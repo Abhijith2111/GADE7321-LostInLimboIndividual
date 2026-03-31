@@ -83,7 +83,7 @@ public class WaterCollision : DeathBarrier
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (!collidersAreNoLongerInDefaultPosition || hasTriggeredThisFrame) return;
+        if (!other.CompareTag("Player") || !collidersAreNoLongerInDefaultPosition || hasTriggeredThisFrame) return;
         hasTriggeredThisFrame = true;
         base.OnTriggerEnter(other);
     }
