@@ -17,12 +17,12 @@ public class EndDialogueTrigger : DialogueTrigger
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Debug.Assert(CollectableManager.Instance, "CollectableManger must exist in the scene");
-        if (!other.CompareTag("Player") || !EndConditionSingletonsAreValid) return;
+        //Debug.Assert(CollectableManager.Instance, "CollectableManger must exist in the scene");
+        if (!other.CompareTag("Player")) return;  //|| !EndConditionSingletonsAreValid) return; // will add back later this is just for second and third levels to work
         other.GetComponent<PlayerInputScript>().DisableCharacterInput();
         other.gameObject.transform.position = transform.position;
-        if (EndConditionsAreMet) GetComponent<DialogueHolder>().StartDialogue(endDialogue, EndOfLevelFunction);
-        else
+        if (!EndConditionSingletonsAreValid || EndConditionsAreMet) GetComponent<DialogueHolder>().StartDialogue(endDialogue, EndOfLevelFunction);
+        else if (!EndConditionsAreMet)
         {
             player = other.gameObject.GetComponent<PlayerMovement>();
             GetComponent<DialogueHolder>().StartDialogue(notEnoughItems, ResetPlayerToLastStableGround);
