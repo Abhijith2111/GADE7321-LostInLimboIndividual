@@ -1398,7 +1398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1090aa2c876c2a499799389f606a53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueHolder
-  dialogueFiles: []
+  dialogueFiles:
+  - {fileID: 4900000, guid: 50a4913e87af2c74b96c03d7ab3790fd, type: 3}
   canPlayMultipleTimes: 0
   displayer: {fileID: 1816564651}
 --- !u!1 &222058418
@@ -4412,7 +4413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01501c0a9b369cc4b8526e1219c08534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatScript
-  bobbingScaleFactor: 1
+  bobbingScaleFactor: 0.8
 --- !u!4 &608431373
 Transform:
   m_ObjectHideFlags: 0
@@ -4672,7 +4673,7 @@ Transform:
   m_GameObject: {fileID: 653788442}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.59934, z: 0}
+  m_LocalPosition: {x: 0, y: -0.87, z: 0}
   m_LocalScale: {x: 3.4372406, y: 3.3974, z: 3.3302}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4785,7 +4786,7 @@ Transform:
   m_GameObject: {fileID: 654423132}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.47433, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 4.2652655, y: 2.8973355, z: 8.109511}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6303,7 +6304,7 @@ Transform:
   m_GameObject: {fileID: 947481459}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.33652, z: 0}
+  m_LocalPosition: {x: 0, y: -0.68, z: 0}
   m_LocalScale: {x: 2, y: 2.3461, z: 3.3302}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7055,7 +7056,7 @@ Transform:
   m_GameObject: {fileID: 1050411896}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.30779, z: 0}
+  m_LocalPosition: {x: 0, y: -0.403, z: 0}
   m_LocalScale: {x: 2.8104, y: 2.2312, z: 3.3302}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11272,7 +11273,7 @@ Transform:
   m_GameObject: {fileID: 1444617344}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.22342, z: 0}
+  m_LocalPosition: {x: 0, y: -0.58, z: 0}
   m_LocalScale: {x: 1.4500537, y: 1.8937, z: 3.3302}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13405,7 +13406,7 @@ Transform:
   m_GameObject: {fileID: 1702655135}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 4.6259804}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16047,7 +16048,7 @@ Transform:
   m_GameObject: {fileID: 2008978427}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.16, z: 0}
   m_LocalScale: {x: 1.93672, y: 1, z: 2.3160875}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16370,7 +16371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EndDialogueTrigger
   notEnoughItems: 0
   endDialogue: 1
-  nextSceneIndex: -1
+  nextSceneIndex: 2
 --- !u!114 &2032175901
 MonoBehaviour:
   m_ObjectHideFlags: 0

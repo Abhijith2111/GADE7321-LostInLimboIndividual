@@ -1,0 +1,18 @@
+{
+	"dialogueItems": [
+		{
+			"name": "Merzp",
+			"icon": "Dialogue/DialogueIcons/player",
+			"text": "I now have enough pieces.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		},
+		{
+			"name": "Merzp",
+			"icon": "Dialogue/DialogueIcons/player",
+			"text": "I think I should stand as close as possible to island to get reception back to the ship. The large red platform should be good.",
+			"fontSize": 24,
+			"charactersPerSecond": 40
+		}
+	]
+}

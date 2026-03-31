@@ -13,7 +13,7 @@ public class DialogueHolder : MonoBehaviour
 
     public void StartDialogue(int dialogueNumber = 0, System.Action callbackFunction = null)
     {
-        if (hasBeenPlayed && !canPlayMultipleTimes || dialogueNumber > dialogueFiles.Length) return;
+        if (hasBeenPlayed && !canPlayMultipleTimes || dialogueNumber >= dialogueFiles.Length || dialogueFiles.Length == 0) return;
         hasBeenPlayed = true;
         Dialogue dialogue = JsonUtility.FromJson<Dialogue>(dialogueFiles[dialogueNumber].text);
         DialogueManager.Instance.StartDialogue(dialogue);
