@@ -36,23 +36,25 @@ public class DialogueManager : MonoBehaviour
         if (!dialogueQueue.IsEmpty) LoadNextItem(); // Load the first item
     }
 
+    void UnloadIcon()
+    {
+        Resources.UnloadAsset(CurrentDialogueIcon);
+        CurrentDialogueIcon = null;
+    }
+
     public void LoadNextItem()
     {
         if (dialogueQueue.IsEmpty)
         {
-            if (CurrentDialogueIcon)
-            {
-                Resources.UnloadAsset(CurrentDialogueIcon);
-                CurrentDialogueIcon = null;
-            }
+            if (CurrentDialogueIcon) UnloadIcon();
             CurrentDialogueItem = null;
             return;
         }
         DialogueItem nextDialogueItem = dialogueQueue.Dequeue();
         if (CurrentDialogueItem == null || CurrentDialogueItem.icon != nextDialogueItem.icon)
         {
-            if (CurrentDialogueIcon) Resources.UnloadAsset(CurrentDialogueIcon);
-            if(!nextDialogueItem.icon.Equals("none", System.StringComparison.OrdinalIgnoreCase)) // Don't try and load icon if icon is none
+            if (CurrentDialogueIcon) UnloadIcon();
+            if (!nextDialogueItem.icon.Equals("none", System.StringComparison.OrdinalIgnoreCase)) // Don't try and load icon if icon is none
                 CurrentDialogueIcon = Resources.Load<Sprite>(nextDialogueItem.icon); // Make sure to write icons correctly
         }
         CurrentDialogueItem = nextDialogueItem;
