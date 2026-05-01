@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
     }
 
-    void Update()
+	void Update()
     {
         // David - character controller is grounded is very buggy I've found it
         // only updates every other frame, so I am using sphere cast as it is more
@@ -96,14 +96,15 @@ public class PlayerMovement : MonoBehaviour
         // have a chance to leave a gap between it and the player especially if the
         // ground distance is large and sphere cast fixes that, idk if this actually
         // matters too much or not, but it's such an edge case that testing is hard
-        isGrounded = Physics.SphereCast(
-            origin: transform.position + Vector3.up * characterController.radius,
+        isGrounded = transform.parent != startingParent
+            || Physics.SphereCast(
+            origin: transform.position + Vector3.up * (characterController.radius + 0.01f), // David - Move slightly up because otherwise returns false sometimes (specfically on start)
             radius: characterController.radius,
             direction: Vector3.down,
-            hitInfo: out RaycastHit hit,
-            maxDistance: groundDistance,
+            hitInfo: out RaycastHit _,
+            maxDistance: groundDistance + 0.01f, // David - Move slightly further to compensate for being slightly higher
             layerMask: groundMask,
-            queryTriggerInteraction: QueryTriggerInteraction.Ignore) || transform.parent != startingParent; // On ground or floating/moving platform
+            queryTriggerInteraction: QueryTriggerInteraction.Ignore); // David - On floating/moving platform or on ground
 
         // David - Set last stable ground if we're grounded and can move so can teleport back
         // if needed
@@ -168,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         characterController.Move(moveDirection * Time.deltaTime);
     }
 
-	private void SetAnimatorValues()
+	void SetAnimatorValues()
 	{
         Vector3 hVel = moveDirection;
         hVel.y = 0f;
