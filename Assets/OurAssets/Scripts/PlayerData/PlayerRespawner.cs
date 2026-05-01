@@ -8,10 +8,7 @@ public class PlayerRespawner : MonoBehaviour
 
     CharacterController cc;
 
-	void Awake()
-	{
-		cc = GetComponent<CharacterController>();
-	}
+	void Awake() => cc = GetComponent<CharacterController>();
 
 	public void Respawn(Transform respawnPoint)
     {
