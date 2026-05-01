@@ -71,7 +71,7 @@ public class DialogueDisplayer : MonoBehaviour
 			if (!nextButton.gameObject.activeSelf) nextButton.gameObject.SetActive(true);
 			return;
 		}
-		if (currentItem.charactersPerSecond < 0) dialogueText.maxVisibleCharacters = dialogueText.text.Length;
+		if (currentItem.CharactersPerSecond < 0) dialogueText.maxVisibleCharacters = dialogueText.text.Length;
 		else
 		{
 			currentReadTime += Time.deltaTime;
@@ -122,15 +122,15 @@ public class DialogueDisplayer : MonoBehaviour
 	        return;
 	    }
 	    nextButton.gameObject.SetActive(false);
-	    dialogueIcon.sprite = DialogueManager.Instance.CurrentDialogueIcon;
-	    speakerName.text = currentItem.name;
+	    dialogueIcon.sprite = currentItem.Icon;
+	    speakerName.text = currentItem.Name;
 	    if (dialogueIcon.sprite) DisplaySpeakerAndIcon();
 	    else DisplaySpeaker();
-	    dialogueText.text = currentItem.text;
-	    dialogueText.fontSize = currentItem.fontSize;
+	    dialogueText.text = currentItem.Text;
+	    dialogueText.fontSize = currentItem.FontSize;
 	    isFinishedWithCurrentItem = false;
 		dialogueText.maxVisibleCharacters = 0;
-	    secondsPerCharacter = 1f / currentItem.charactersPerSecond;
+	    secondsPerCharacter = 1f / currentItem.CharactersPerSecond;
 	    currentReadTime = 0f;
 	}
 	
@@ -148,6 +148,7 @@ public class DialogueDisplayer : MonoBehaviour
 	    playerInput?.EnableCharacterInput();
 	    endCallbackFunction?.Invoke();
 	    endCallbackFunction = null; // Clear the callback function (is this even needed since we set it to null on start? Idk I'll leave it to be safe)
+		DialogueManager.Instance.Clear();
 	    gameObject.SetActive(false);
 	}
 }

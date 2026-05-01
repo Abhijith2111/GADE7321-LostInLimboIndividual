@@ -19,8 +19,8 @@ public class DialogueManager : MonoBehaviour
 
     readonly QueueADT<DialogueItem> dialogueQueue = new QueueADT<DialogueItem>();
 
+    Dialogue currentDialogue;
     public DialogueItem CurrentDialogueItem { get; private set; }
-    public Sprite CurrentDialogueIcon { get; private set; }
 
     void Awake()
     {
@@ -31,32 +31,28 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         if (dialogue == null) return;
-        if (!dialogueQueue.IsEmpty) dialogueQueue.Clear();
-        System.Array.ForEach(dialogue.dialogueItems, (item) => dialogueQueue.Enqueue(item));
+        Clear();
+        currentDialogue = dialogue;
+        System.Array.ForEach(currentDialogue.DialogueItems.ToArray(), (item) => dialogueQueue.Enqueue(item));
         if (!dialogueQueue.IsEmpty) LoadNextItem(); // Load the first item
-    }
-
-    void UnloadIcon()
-    {
-        Resources.UnloadAsset(CurrentDialogueIcon);
-        CurrentDialogueIcon = null;
     }
 
     public void LoadNextItem()
     {
         if (dialogueQueue.IsEmpty)
         {
-            if (CurrentDialogueIcon) UnloadIcon();
-            CurrentDialogueItem = null;
+            Clear();
             return;
         }
-        DialogueItem nextDialogueItem = dialogueQueue.Dequeue();
-        if (CurrentDialogueItem == null || CurrentDialogueItem.icon != nextDialogueItem.icon)
-        {
-            if (CurrentDialogueIcon) UnloadIcon();
-            if (!nextDialogueItem.icon.Equals("none", System.StringComparison.OrdinalIgnoreCase)) // Don't try and load icon if icon is none
-                CurrentDialogueIcon = Resources.Load<Sprite>(nextDialogueItem.icon); // Make sure to write icons correctly
-        }
-        CurrentDialogueItem = nextDialogueItem;
+        CurrentDialogueItem = dialogueQueue.Dequeue();
     }
+
+    public void Clear()
+    {
+        if (currentDialogue == null) return;
+        currentDialogue.UnloadAllSprites();
+		dialogueQueue.Clear();
+        currentDialogue = null;
+		CurrentDialogueItem = null;
+	}
 }

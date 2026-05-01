@@ -15,8 +15,8 @@ public class DialogueHolder : MonoBehaviour
     {
         if (hasBeenPlayed && !canPlayMultipleTimes || dialogueNumber >= dialogueFiles.Length || dialogueFiles.Length == 0) return;
         hasBeenPlayed = true;
-        Dialogue dialogue = JsonUtility.FromJson<Dialogue>(dialogueFiles[dialogueNumber].text);
-        DialogueManager.Instance.StartDialogue(dialogue);
+        SerialisedDialogue dialogue = JsonUtility.FromJson<SerialisedDialogue>(dialogueFiles[dialogueNumber].text);
+        DialogueManager.Instance.StartDialogue(dialogue.Deserialised);
         displayer.StartDisplayingDialogue(callbackFunction);
     }
 

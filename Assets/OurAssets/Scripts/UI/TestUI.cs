@@ -16,7 +16,7 @@ public class TestUI : MonoBehaviour
     void Update()
     {
         if (DialogueManager.Instance.CurrentDialogueItem == null) return;
-        tmpro.text = DialogueManager.Instance.CurrentDialogueItem.text;
-        tmpro.fontSize = DialogueManager.Instance.CurrentDialogueItem.fontSize;
+        //tmpro.text = DialogueManager.Instance.CurrentDialogueItem.text;
+        //tmpro.fontSize = DialogueManager.Instance.CurrentDialogueItem.fontSize;
     }
 }
