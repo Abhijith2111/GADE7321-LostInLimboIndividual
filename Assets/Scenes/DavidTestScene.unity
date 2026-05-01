@@ -2637,6 +2637,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2098784780391194063, guid: d3a3aad6ab75c2c4aa107170eb38b74a, type: 3}
+      propertyPath: delayGroundCheckForFramesOnStart
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 3240913457466322921, guid: d3a3aad6ab75c2c4aa107170eb38b74a, type: 3}
       propertyPath: m_CastShadows
       value: 2

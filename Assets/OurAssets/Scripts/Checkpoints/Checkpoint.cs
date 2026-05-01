@@ -39,4 +39,10 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player")) CheckpointManager.Instance.CaptureCheckpoint(this);
     }
+
+    public void SnapToGround()
+    {
+        Vector3 origin = transform.position + Vector3.up * 0.01f;
+        if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit)) transform.position = hit.point;
+    }
 }
