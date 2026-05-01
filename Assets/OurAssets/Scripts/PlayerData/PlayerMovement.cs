@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    Animator animator; // David added
     public float walkSpeed = 6f;
     public float runSpeed = 12f;
     public float jumpHeight = 1f; // David - Changed to set jump height instead of velocity
@@ -161,12 +163,23 @@ public class PlayerMovement : MonoBehaviour
         characterController.height = isCrouching && canMove ? crouchHeight : defaultHeight;
         characterController.center = new Vector3(characterController.center.x, characterController.height / 2f, characterController.center.z);
 
+        SetAnimatorValues();
+
         characterController.Move(moveDirection * Time.deltaTime);
     }
 
-    #region Input Handling
-    // David - Added jump function to work with new input system
-    void HandleJumpInput(InputAction.CallbackContext ctx)
+	private void SetAnimatorValues()
+	{
+        Vector3 hVel = moveDirection;
+        hVel.y = 0f;
+        animator.SetFloat("Speed", hVel.magnitude);
+        animator.SetBool("IsCrouching", isCrouching);
+        animator.SetBool("IsGrounded", isGrounded);
+	}
+
+	#region Input Handling
+	// David - Added jump function to work with new input system
+	void HandleJumpInput(InputAction.CallbackContext ctx)
     {
         if (ctx.started || ctx.performed) jumpInputWasPressed = true;
         else if (ctx.canceled) jumpInputWasPressed = false;
