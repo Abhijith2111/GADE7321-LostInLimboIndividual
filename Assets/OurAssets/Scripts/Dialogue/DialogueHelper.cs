@@ -24,14 +24,9 @@ public class DialogueHelper : MonoBehaviour
 
 	string m_CurrentLoadedFileName;
 	string m_LoadFilePath;
-	string m_SaveDeleteFilePath;
 
 #if UNITY_EDITOR
-	void OnValidate()
-	{
-		m_LoadFilePath = $"{m_JSONFolder}/{FileAndSub}";
-		m_SaveDeleteFilePath = $"{m_ResourcesFolder}/{m_JSONFolder}/{FileToSaveOrDeleteAndSub}.json";
-	}
+	void OnValidate() => m_LoadFilePath = $"{m_JSONFolder}/{FileAndSub}";
 #endif
 
 	public void ClearValues()
@@ -63,28 +58,39 @@ public class DialogueHelper : MonoBehaviour
 		}
 	}
 
-	public void SaveFile()
+	public void SaveFile(string fileToSaveAndSub)
 	{
-		if (!string.IsNullOrWhiteSpace(SubDirectory) && !Directory.Exists($"{m_ResourcesFolder}/{m_JSONFolder}/{SubDirectory}")) Directory.CreateDirectory($"{m_ResourcesFolder}/{m_JSONFolder}/{SubDirectory}");
+		if (!fileToSaveAndSub.EndsWith(".json")) fileToSaveAndSub += ".json";
+		int indexOfSlash = fileToSaveAndSub.LastIndexOf('/');
+		string sub = fileToSaveAndSub.Substring(0, indexOfSlash).TrimEnd('/');
+		string file = fileToSaveAndSub.Substring(indexOfSlash, fileToSaveAndSub.Length - indexOfSlash).TrimStart('/');
+		if (!string.IsNullOrWhiteSpace(sub) && !Directory.Exists($"{m_ResourcesFolder}/{m_JSONFolder}/{sub}")) Directory.CreateDirectory($"{m_ResourcesFolder}/{m_JSONFolder}/{sub}");
 		string json = JsonUtility.ToJson(m_Dialogue.Serialised, prettyPrint: true);
-		string message = $"Successfully {(File.Exists(m_SaveDeleteFilePath) ? "modified" : "created")} \"{FileToSaveOrDeleteAndSub}.json\"";
-		File.WriteAllText(m_SaveDeleteFilePath, json);
+		string writePath = $"{m_ResourcesFolder}/{m_JSONFolder}/{fileToSaveAndSub}";
+		string message = $"Successfully {(File.Exists(writePath) ? "modified" : "created")} \"{fileToSaveAndSub}.json\"";
+		File.WriteAllText(writePath, json);
 		Debug.Log(message);
 	}
 
-	public void DeleteFile()
+	public void DeleteFile(string fileToDeleteAndSub)
 	{
-		if (!File.Exists(m_SaveDeleteFilePath))
+		if (!fileToDeleteAndSub.EndsWith(".json")) fileToDeleteAndSub += ".json";
+		string deletePath = $"{m_ResourcesFolder}/{m_JSONFolder}/{fileToDeleteAndSub}";
+		if (!File.Exists(deletePath))
 		{
-			Debug.LogError($"\"{FileNameToSaveOrDelete}.json\" doesn't exist inside Assets/Resources/{m_JSONFolder}{Sub}");
+			int indexOfSlash = fileToDeleteAndSub.LastIndexOf('/');
+			string sub = fileToDeleteAndSub.Substring(0, indexOfSlash).TrimEnd('/');
+			if (string.IsNullOrWhiteSpace(sub) && !sub.EndsWith('/')) sub += '/';
+			string file = fileToDeleteAndSub.Substring(indexOfSlash, fileToDeleteAndSub.Length - indexOfSlash).TrimStart('/');
+			Debug.LogError($"\"{file}.json\" doesn't exist inside Assets/Resources/{m_JSONFolder}/{sub}");
 			return;
 		}
-		File.Delete(m_SaveDeleteFilePath);
-		string message = $"Successfully deleted {FileToSaveOrDeleteAndSub}.json";
-		if (File.Exists($"{m_SaveDeleteFilePath}.meta"))
+		File.Delete(deletePath);
+		string message = $"Successfully deleted {fileToDeleteAndSub}.json";
+		if (File.Exists($"{deletePath}.meta"))
 		{
-			File.Delete($"{m_SaveDeleteFilePath}.meta");
-			message += $" and {FileToSaveOrDeleteAndSub}.json.meta";
+			File.Delete($"{deletePath}.meta");
+			message += $" and {fileToDeleteAndSub}.json.meta";
 		}
 		if (m_ClearOnDelete) ClearValues();
 		Debug.Log(message);
