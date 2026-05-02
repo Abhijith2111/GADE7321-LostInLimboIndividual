@@ -3,6 +3,8 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
+// TODO: probably can simplify this a bit to choose to modify file first then only need to show those specific files
+// then for creation they can choose existing directory or new directory
 public class DialogueEditor : EditorWindow
 {
 	static readonly string s_ResourcesFolder = $"{Application.dataPath.TrimEnd('/')}/Resources";
@@ -134,12 +136,12 @@ public class DialogueEditor : EditorWindow
 		if (string.IsNullOrEmpty(m_FileName)) return;
 		if (m_SelectedFileOptionIndex == 0)
 		{
-			if (GUILayout.Button($"Modify \"{FilePath}{(m_FileName.EndsWith(".json") ? "" : ".json")}\""))
+			if (GUILayout.Button($"Modify \"{FilePath}{(FilePath.EndsWith(".json") ? "" : ".json")}\""))
 			{
 				if (!m_FileName.EndsWith(".json")) m_FileName += ".json";
 				SaveFile();
 			}
-			if (GUILayout.Button($"Delete \"{FilePath}{(m_FileName.EndsWith(".json") ? "" : ".json")}\""))
+			if (GUILayout.Button($"Delete \"{FilePath}{(FilePath.EndsWith(".json") ? "" : ".json")}\""))
 			{
 				if (!m_FileName.EndsWith(".json")) m_FileName += ".json";
 				DeleteFile();
@@ -147,9 +149,10 @@ public class DialogueEditor : EditorWindow
 		}
 		else if (!string.IsNullOrWhiteSpace(m_DirectoryName))
 		{
-			if (GUILayout.Button($"Create \"{FilePath}{(m_FileName.EndsWith(".json") ? "" : ".json")}\""))
+			if (GUILayout.Button($"Create \"{(FilePath.StartsWith("Resources/") ? "" : "Resources/")}{FilePath}{(FilePath.EndsWith(".json") ? "" : ".json")}\""))
 			{
-				if (!m_FileName.EndsWith(".json")) m_FileName += ".json";
+				if (!FilePath.StartsWith("Resources/")) m_DirectoryName = "Resources/" + m_DirectoryName;
+				if (!FilePath.EndsWith(".json")) m_FileName += ".json";
 				SaveFile();
 			}
 		}
