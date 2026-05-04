@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// ProjectileFactory is just a wrapper MonoBehavior for the internal factory
+// However, Projectile Factory does also use an object pool for the projectiles
 public class ProjectileFactory : MonoBehaviour
 {
     static ProjectileFactory s_Instance;
@@ -18,6 +20,7 @@ public class ProjectileFactory : MonoBehaviour
         }
     }
 
+    ProjectileFactoryInternal m_ProjectileFactory;
     GameObject m_ActiveProjectilesHolder;
     GameObject m_InactiveProjectilesHolder;
     readonly Dictionary<ProjectileData, Dictionary<Projectile, bool>> m_Projectiles = new Dictionary<ProjectileData, Dictionary<Projectile, bool>>();
@@ -42,14 +45,11 @@ public class ProjectileFactory : MonoBehaviour
         m_InactiveProjectilesHolder.transform.parent = transform;
     }
 
-    public Projectile SpawnProjectile(ProjectileData projectileData, Transform spawnTransform)
+    public Projectile Create(ProjectileData projectileData, Transform spawnTransform)
     {
         if (!projectileData || !spawnTransform) return null;
         if (!m_Projectiles.ContainsKey(projectileData)) CreateNewPool(projectileData);
-		Projectile projectile = FirstAvailableOrNewProjectile(projectileData);
-        projectile.transform.parent = m_ActiveHolders[projectileData];
-        projectile.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
-        m_Projectiles[projectileData][projectile] = false;
+		Projectile projectile = FirstAvailableOrNewProjectile(projectileData, m_ActiveHolders[projectileData], spawnTransform);
         return projectile;
     }
 
@@ -73,17 +73,7 @@ public class ProjectileFactory : MonoBehaviour
         m_InactiveHolders.Add(projectileData, inactiveProjectiles.transform);
     }
 
-    Projectile CreateNewProjectile(ProjectileData projectileData)
-    {
-        GameObject go = new GameObject(projectileData.name);
-        Projectile projectile = go.AddComponent<Projectile>();
-		projectile.ProjectileData = projectileData;
-		projectile.gameObject.SetActive(false);
-        m_Projectiles[projectileData].Add(projectile, true);
-        return projectile;
-    }
-
-    Projectile FirstAvailableOrNewProjectile(ProjectileData projectileData)
+    Projectile FirstAvailableOrNewProjectile(ProjectileData projectileData, Transform parent, Transform spawnTransform)
     {
         Projectile projectile = null;
         foreach (Projectile p in m_Projectiles[projectileData].Keys)
@@ -92,7 +82,29 @@ public class ProjectileFactory : MonoBehaviour
             projectile = p;
             break;
         }
-        projectile ??= CreateNewProjectile(projectileData);
+        if (!projectile)
+        {
+            projectile = m_ProjectileFactory.Create(projectileData, parent, spawnTransform);
+            m_Projectiles[projectileData].Add(projectile, false);
+        }
+        else m_Projectiles[projectileData][projectile] = false;
         return projectile;
     }
+
+	class ProjectileFactoryInternal : AbstractFactory<Projectile>
+	{
+		public override Projectile Create(params object[] args)
+		{
+            if (args[0] is not ProjectileData projectileData) return null;
+            if (args[1] is not Transform parent) return null;
+            if (args[2] is not Transform spawnTransform) return null;
+            GameObject go = new GameObject(projectileData.name);
+            Projectile projectile = go.AddComponent<Projectile>();
+			projectile.transform.parent = parent;
+			projectile.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
+            projectile.ProjectileData = projectileData;
+            projectile.gameObject.SetActive(false);
+            return projectile;
+		}
+	}
 }

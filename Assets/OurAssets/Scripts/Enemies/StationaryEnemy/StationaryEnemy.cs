@@ -15,7 +15,7 @@ public class StationaryEnemy : BaseEnemy
 	{
         m_CurrentTime += Time.fixedDeltaTime;
         if (m_CurrentTime < 1f / m_FireRate) return;
-        ProjectileFactory.Instance.SpawnProjectile(m_Projectile, m_ProjectileSpawnTransform).Activate();
+        ProjectileFactory.Instance.Create(m_Projectile, m_ProjectileSpawnTransform).Activate();
         m_CurrentTime = 0f;
 	}
 }
