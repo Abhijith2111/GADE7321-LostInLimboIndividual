@@ -230,6 +230,7 @@ public class DialogueEditor : EditorWindow
 			File.Delete($"{fullPath}.json");
 			message += $" and \"{m_FileName}.meta\"";
 		}
+		Debug.Log(message);
 		if (m_bClearOnDelete) Clear();
 	}
 
