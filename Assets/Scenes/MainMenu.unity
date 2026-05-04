@@ -696,7 +696,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "<size=60><b>Game Guide</b></size>\r\n\tGet all the collectables\r\n\tAvoid
     dying (you lose lives)\r\n\t\tBeginner Level = don't touch water\r\n\tGet to
-    the final platform\r\n\tOptional: Get food (it gives you score)\r\n\r\n<size=60><b>Controls</b></size>\r\n<size=45>Keyboard
+    the final platform\r\n\tOptional: Complete the level within the time limit\n\tfor
+    bonus score (1 point per second remaining)\r\n\r\n<size=60><b>Controls</b></size>\r\n<size=45>Keyboard
     and Mouse</size>\r\n\tUse <sprite=\"KeyboardAndMouseSprites/W_Key_Dark\" name=\"W_Key_Dark\"><sprite=\"KeyboardAndMouseSprites/A_Key_Dark\"
     name=\"A_Key_Dark\"><sprite=\"KeyboardAndMouseSprites/S_Key_Dark\" name=\"S_Key_Dark\"><sprite=\"KeyboardAndMouseSprites/D_Key_Dark\"
     name=\"D_Key_Dark\"> to move and <sprite=\"KeyboardAndMouseSprites/Mouse_Simple_Key_Dark\"

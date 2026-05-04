@@ -1849,7 +1849,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1723378103}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.40671742}
+  m_AnchorMin: {x: 0, y: 0.42247856}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -3042,7 +3042,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 441.49954, y: -0.00091552734}
-  m_SizeDelta: {x: 800, y: 1348.43}
+  m_SizeDelta: {x: 800, y: 1385.23}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &280786464
 MonoBehaviour:
@@ -3080,7 +3080,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "<size=60><b>Game Guide</b></size>\r\n\tGet all the collectables\r\n\tAvoid
     dying (you lose lives)\r\n\t\tBeginner Level = don't touch water\r\n\tGet to
-    the final platform\r\n\tOptional: Get food (it gives you score)\r\n\r\n<size=60><b>Controls</b></size>\r\n<size=45>Keyboard
+    the final platform\r\n\tOptional: Complete the level within the time limit\n\tfor
+    bonus score (1 point per second remaining)\r\n\r\n<size=60><b>Controls</b></size>\r\n<size=45>Keyboard
     and Mouse</size>\r\n\tUse <sprite=\"KeyboardAndMouseSprites/W_Key_Dark\" name=\"W_Key_Dark\"><sprite=\"KeyboardAndMouseSprites/A_Key_Dark\"
     name=\"A_Key_Dark\"><sprite=\"KeyboardAndMouseSprites/S_Key_Dark\" name=\"S_Key_Dark\"><sprite=\"KeyboardAndMouseSprites/D_Key_Dark\"
     name=\"D_Key_Dark\"> to move and <sprite=\"KeyboardAndMouseSprites/Mouse_Simple_Key_Dark\"
@@ -8114,8 +8115,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 198582565}
   m_HandleRect: {fileID: 198582564}
   m_Direction: 2
-  m_Value: 1.0000018
-  m_Size: 0.5932826
+  m_Value: 1.0000017
+  m_Size: 0.57752144
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
