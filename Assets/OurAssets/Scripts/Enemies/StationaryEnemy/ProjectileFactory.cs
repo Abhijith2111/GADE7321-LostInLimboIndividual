@@ -15,6 +15,7 @@ public class ProjectileFactory : MonoBehaviour
                 GameObject go = new GameObject("ProjectileFactory");
                 s_Instance = go.AddComponent<ProjectileFactory>();
                 s_Instance.InitHolders();
+                s_Instance.m_ProjectileFactory = new ProjectileFactoryInternal();
             }
             return s_Instance;
         }
@@ -34,6 +35,7 @@ public class ProjectileFactory : MonoBehaviour
         {
             s_Instance = this;
             InitHolders();
+            m_ProjectileFactory = new ProjectileFactoryInternal();
         }
     }
 
