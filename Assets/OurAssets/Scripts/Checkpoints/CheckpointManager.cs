@@ -1,4 +1,6 @@
+using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CheckpointManager : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class CheckpointManager : MonoBehaviour
             return _instance;
         }
     }
+    static readonly string TempCheckpointDataFile = Path.Combine(Application.temporaryCachePath, "CheckpointData.txt"); // The place to store data between levels
 
     [SerializeField]
     DeathScreen deathScreen;
@@ -44,15 +47,49 @@ public class CheckpointManager : MonoBehaviour
         else _instance = this;
     }
 
-    public void SetStartingCheckpoint(Checkpoint checkpoint)
+    bool isQuit = false;
+
+	void OnApplicationQuit() // Hopefully this gets called when editor stops playing too
+	{
+        isQuit = true;
+        if (File.Exists(TempCheckpointDataFile)) File.Delete(TempCheckpointDataFile); // Destroy temp data on close
+	}
+
+	void OnDestroy()
+	{
+        // Write data to file on destroy (scene change), but not if application closing
+        if (!isQuit) File.WriteAllText(TempCheckpointDataFile, $"{checkpointStack.Peek().Lives}\n{checkpointStack.Peek().Score}");
+	}
+
+	public void SetStartingCheckpoint(Checkpoint checkpoint)
     {
+		checkpoint.Score = 0; // Set score to zero for normal and starting checkpoint, because only if previous data exists the value needs to be something else
         if (checkpointStack.IsEmpty)
         {
             CaptureCheckpoint(checkpoint); // Capture the checkpoint
+            checkpoint.Lives = checkpoint.StartingLives;
+            if (LevelStartManager.Instance.StartingLevelIndex != SceneManager.GetActiveScene().buildIndex) // Not in the starting scene so we should read the previous lives and score
+            {
+                if (File.Exists(TempCheckpointDataFile))
+                {
+                    string contents = File.ReadAllText(TempCheckpointDataFile);
+                    string[] lines = contents.Split('\n'); // Split by line
+                    if (lines.Length == 2)
+                    {
+                        checkpoint.Lives = int.Parse(lines[0]);
+                        checkpoint.Score = int.Parse(lines[1]);
+                    }
+                }
+            }
+            else if (File.Exists(TempCheckpointDataFile)) File.Delete(TempCheckpointDataFile); // Is the starting level, but data was left behind from a previous game (likely the game crashed) so delete the previous game's data
             Transform startingPoint = checkpoint.RespawnPoint;
             Player.Respawn(startingPoint); // Spawn player at start
         }
-        else checkpoint.HasBeenCaptured = false; // Set HasBeenCaptured to false so that it can still be captured
+        else
+        {
+            checkpoint.Lives = 0; // Set lives to 0 because not starting checkpoint
+            checkpoint.HasBeenCaptured = false; // Set HasBeenCaptured to false so that it can still be captured
+        }
     }
 
     public void CaptureCheckpoint(Checkpoint checkpoint)

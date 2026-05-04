@@ -1,11 +1,18 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeathScreen : MonoBehaviour
 {
     [SerializeField]
+    LoadingScreen loadingScreen;
+    [SerializeField]
     Button restartButton;
 
-    void Awake() => restartButton.onClick.AddListener(() => SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name));
+    void Awake()
+    {
+        restartButton.onClick.AddListener(() => {
+            loadingScreen.SceneIndexToLoad = LevelStartManager.Instance.StartingLevelIndex; // Restart at the scene that was chosen in level select because don't want to have to keep opening menu
+            loadingScreen.gameObject.SetActive(true);
+        });
+    }
 }

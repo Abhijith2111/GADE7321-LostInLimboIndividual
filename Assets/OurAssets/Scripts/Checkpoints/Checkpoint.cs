@@ -11,6 +11,7 @@ public class Checkpoint : MonoBehaviour
     public Transform RespawnPoint { get; private set; }
 
     public bool HasBeenCaptured { get; set; }
+    public int StartingLives => startingLives;
     public int Lives { get; set; }
     public int Score { get; set; }
 
@@ -22,17 +23,13 @@ public class Checkpoint : MonoBehaviour
 
     void Start()
     {
-        if (isStart)
-        {
-            CheckpointManager.Instance.SetStartingCheckpoint(this);
-            Lives = startingLives;
-        }
+		if (isStart) CheckpointManager.Instance.SetStartingCheckpoint(this);
         else
         {
             HasBeenCaptured = false;
             Lives = 0;
-        }
-        Score = 0;
+			Score = 0;
+		}
     }
 
     void OnTriggerEnter(Collider other)
