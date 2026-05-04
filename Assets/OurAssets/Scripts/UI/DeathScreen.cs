@@ -15,4 +15,6 @@ public class DeathScreen : MonoBehaviour
             loadingScreen.gameObject.SetActive(true);
         });
     }
+
+    void OnEnable() => FindFirstObjectByType<PlayerInputScript>().DisableCharacterInput();
 }
