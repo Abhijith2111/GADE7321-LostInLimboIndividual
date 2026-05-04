@@ -16,11 +16,13 @@ public class PlayerInputScript : MonoBehaviour
     {
         pM.EnableMovement();
         pL.EnableLook();
+        Time.timeScale = 1f;
     }
 
     public void DisableCharacterInput()
     {
         pM.DisableMovement();
         pL.DisableLook();
+        Time.timeScale = 0f;
     }
 }

@@ -74,7 +74,7 @@ public class DialogueDisplayer : MonoBehaviour
 		if (currentItem.CharactersPerSecond < 0) dialogueText.maxVisibleCharacters = dialogueText.text.Length;
 		else
 		{
-			currentReadTime += Time.deltaTime;
+			currentReadTime += Time.unscaledDeltaTime;
 			if (currentReadTime >= secondsPerCharacter)
 			{
 			    int numNewCharacters = (int)(currentReadTime / secondsPerCharacter);
