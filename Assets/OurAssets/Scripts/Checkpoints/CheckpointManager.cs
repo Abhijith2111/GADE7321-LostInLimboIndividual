@@ -14,11 +14,12 @@ public class CheckpointManager : MonoBehaviour
             {
                 GameObject go = new GameObject("CheckpointManager");
                 _instance = go.AddComponent<CheckpointManager>();
-            }
+				TempCheckpointDataFile = Path.Combine(Application.temporaryCachePath, "CheckpointData.txt"); // The place to store data between levels
+			}
             return _instance;
         }
     }
-    static readonly string TempCheckpointDataFile = Path.Combine(Application.temporaryCachePath, "CheckpointData.txt"); // The place to store data between levels
+    static string TempCheckpointDataFile;
 
     [SerializeField]
     DeathScreen deathScreen;
@@ -44,7 +45,11 @@ public class CheckpointManager : MonoBehaviour
     void Awake()
     {
         if (_instance && _instance != this) Destroy(gameObject);
-        else _instance = this;
+        else
+        {
+            _instance = this;
+			TempCheckpointDataFile = Path.Combine(Application.temporaryCachePath, "CheckpointData.txt"); // The place to store data between levels
+		}
     }
 
     bool isQuit = false;
