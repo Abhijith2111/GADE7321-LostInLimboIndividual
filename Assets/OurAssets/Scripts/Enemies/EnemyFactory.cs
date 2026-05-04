@@ -32,13 +32,15 @@ public class EnemyFactory : MonoBehaviour
 	}
 
 	/// <summary>
-	/// <para>To create a <seealso cref="StationaryEnemy"/>, args = (<seealso cref="StationaryEnemy"/> prefab, <seealso cref="Transform"/> parent)</para>
+	/// <para>To create a <see cref="StationaryEnemy"/>, args = (<see cref="StationaryEnemy"/> prefab, <see cref="Transform"/> parent)</para>
+    /// <para>To create a <see cref="PatrollingEnemy"/>, args = (<seealso cref="PatrollingEnemy"/> prefab, <see cref="EnemyPatrolPoints"/> points)</para>
 	/// </summary>
-	/// <typeparam name="T">The type of <seealso cref="BaseEnemy"/> to create</typeparam>
+	/// <typeparam name="T">The type of <see cref="BaseEnemy"/> to create</typeparam>
 	/// <param name="args">The arguments needed to create the enemy</param>
-	/// <returns>An enemy of the type <typeparamref name="T"/></returns>
+	/// <returns>A <see cref="BaseEnemy"/> of the type <typeparamref name="T"/></returns>
 	public T Create<T>(params object[] args) where T : BaseEnemy => m_EnemyFactory.Create(typeof(T), args) as T;
 
+    // Need patrolling enemy from abhi
     class EnemyFactoryInternal : AbstractFactory<BaseEnemy>
 	{
 		public override BaseEnemy Create(params object[] args)
@@ -52,14 +54,34 @@ public class EnemyFactory : MonoBehaviour
             {
                 if (args.Length != 3 || args[1] is not StationaryEnemy prefab || args[2] is not Transform parent)
                 {
-                    Debug.LogWarning("To spawn a stationary enemy args[0] needs to be the prefab and args[1] needs to be the parent transform");
+                    Debug.LogWarning("To spawn a stationary enemy args[1] needs to be the prefab and args[2] needs to be the parent transform");
                     return null;
                 }
                 return CreateStationaryEnemy(prefab, parent);
             }
-            throw new NotImplementedException($"There is no definition to create an enemy of type {t}");
+            //else if (t == typeof(PatrollingEnemy))
+			//{
+			//	if (args.Length != 3 || args[1] is not PatrollingEnemy prefab || args[2] is not EnemyPatrolPoints points)
+            //    {
+            //        Debug.LogWarning("To spawn a patrolling enemy args[1] needs to be the prefab and args[2] needs to be the patrol points");
+            //        return null;
+            //    }
+			//}
+			throw new NotImplementedException($"There is no definition to create an enemy of type {t}");
 		}
 
-        public StationaryEnemy CreateStationaryEnemy(StationaryEnemy prefab, Transform parent) => Instantiate(prefab, parent);
+        StationaryEnemy CreateStationaryEnemy(StationaryEnemy prefab, Transform parent) => Instantiate(prefab.gameObject, parent).GetComponent<StationaryEnemy>();
+
+        //PatrollingEnemy CreatePatrollingEnemy(PatrollingEnemy prefab, EnemyPatrolPoints points)
+        //{
+        //    PatrollingEnemy enemy = Instantiate(prefab.gameObject, points.PatrolPoints[0]).GetComponent<PatrollingEnemy>();
+        //    LinkedListADT<Transform> patrolPoints = new LinkedListADT<Transform>();
+        //    foreach (Transform point in points.PatrolPoints)
+        //    {
+        //        patrolPoints.AddBack(point);
+        //    }
+        //    enemy.PatrolPoints = patrolPoints;
+        //    return enemy;
+        //}
 	}
 }
