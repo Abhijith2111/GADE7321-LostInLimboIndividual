@@ -23,6 +23,7 @@ public class EndDialogueTrigger : DialogueTrigger
         if (!EndConditionSingletonsAreValid || EndConditionsAreMet)
         {
             CheckpointManager.Instance.AddScore(LevelTimer.Instance?.BonusScore ?? 0);
+            LevelTimer.Instance?.OnBeaten?.Invoke();
             GetComponent<DialogueHolder>().StartDialogue(endDialogue, EndOfLevelFunction);
         }
         else if (!EndConditionsAreMet)
