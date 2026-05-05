@@ -36,6 +36,8 @@ public class ProjectileData : ScriptableObject
 	public LayerMask HittableLayers { get; private set; }
 	[SerializeField]
 	bool m_CollideWithTriggers = false;
+	[field: SerializeField, Min(0f)]
+	public float Radius { get; private set; } = 0.1f;
 	[field: SerializeField, Min(0.1f)]
 	public float Speed { get; private set; } = 5f;
 	[field: SerializeField, Min(0.1f)]

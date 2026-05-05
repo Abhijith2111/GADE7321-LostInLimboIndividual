@@ -13,7 +13,7 @@ public abstract class BaseEnemy : MonoBehaviour
 	/// </summary>
 	protected virtual void CheckForPlayerCollision(GameObject go)
 	{
-		if (!go.CompareTag("Player") || gameObject.layer != LayerMask.NameToLayer("Player") || m_bHasTriggeredThisFrame) return;
+		if ((!go.CompareTag("Player") && gameObject.layer != LayerMask.NameToLayer("Player")) || m_bHasTriggeredThisFrame) return;
 		m_bHasTriggeredThisFrame = true;
 		CheckpointManager.Instance.LoseLife();
 	}

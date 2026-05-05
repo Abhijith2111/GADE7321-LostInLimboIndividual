@@ -90,6 +90,7 @@ public class ProjectileFactory : MonoBehaviour
             m_Projectiles[projectileData].Add(projectile, false);
         }
         else m_Projectiles[projectileData][projectile] = false;
+        projectile.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
         return projectile;
     }
 
@@ -99,11 +100,9 @@ public class ProjectileFactory : MonoBehaviour
 		{
             if (args[0] is not ProjectileData projectileData) return null;
             if (args[1] is not Transform parent) return null;
-            if (args[2] is not Transform spawnTransform) return null;
             GameObject go = new GameObject(projectileData.name);
             Projectile projectile = go.AddComponent<Projectile>();
 			projectile.transform.parent = parent;
-			projectile.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
             projectile.ProjectileData = projectileData;
             projectile.gameObject.SetActive(false);
             return projectile;

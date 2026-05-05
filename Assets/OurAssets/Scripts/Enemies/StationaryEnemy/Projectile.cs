@@ -24,7 +24,8 @@ public class Projectile : MonoBehaviour
 	{
 		if (!m_ProjectileData || !m_bActive) return;
 		transform.position += (m_ProjectileData.Speed * Time.fixedDeltaTime) * ProjectileHelper.GetMotionDirection(transform, m_ProjectileData.AxisOfMotion);
-		if (Physics.Linecast(m_LastPosition, transform.position, out RaycastHit hit, m_ProjectileData.HittableLayers, m_ProjectileData.QueryTriggerInteraction)) // Does this detect the player? I don't remember
+		Vector3 delta = transform.position - m_LastPosition;
+		if (Physics.SphereCast(m_LastPosition, m_ProjectileData.Radius, delta, out RaycastHit hit, delta.magnitude, m_ProjectileData.HittableLayers, m_ProjectileData.QueryTriggerInteraction)) // Does this detect the player? I don't remember
 		{
 			if (hit.collider.CompareTag("Player") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Player")) // In case the collider doesn't have Player tag then check if the layer is Player
 				CheckpointManager.Instance.LoseLife();

@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e88ed7d73f08a4d8e0a02f67357af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StationaryEnemy
-  m_Projectile: {fileID: 0}
+  m_Projectile: {fileID: 11400000, guid: 25e3acb012f127b47bbc4fdec24b9773, type: 2}
   m_ProjectileSpawnTransform: {fileID: 3752893005092794152}
 --- !u!1001 &975039562188860359
 PrefabInstance:
