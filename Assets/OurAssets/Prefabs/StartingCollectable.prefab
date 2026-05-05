@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6670057621960295106}
   - component: {fileID: 6583266410391850422}
   - component: {fileID: -3773695015406776511}
+  - component: {fileID: 1111250419156141198}
   m_Layer: 0
   m_Name: StartingCollectable
   m_TagString: Untagged
@@ -67,6 +68,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8648d9622d97134ab5ab980ac5e5622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  scoreGiven: 100
+--- !u!114 &1111250419156141198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8107157796536381265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38bd8af1355b8eb42810d5cd5e0f2d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableAnimation
+  m_DegreesPerSecond: 15
+  m_WaveType: 1
+  m_Amplitude: 0.05
+  m_Frequency: 0.5
 --- !u!1001 &4158913786136538829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119,6 +137,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8972327243960969244, guid: c9250c3e4617e3840a9d0bf4a1282aa8, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972327243960969244, guid: c9250c3e4617e3840a9d0bf4a1282aa8, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4129204678c79e644a4bc7a4f16691e4, type: 2}
+    - target: {fileID: 9123500967244724730, guid: c9250c3e4617e3840a9d0bf4a1282aa8, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123500967244724730, guid: c9250c3e4617e3840a9d0bf4a1282aa8, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4129204678c79e644a4bc7a4f16691e4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
