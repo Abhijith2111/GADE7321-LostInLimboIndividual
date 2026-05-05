@@ -12,6 +12,10 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
+# Exclude test scenes
+**/*[Tt][Ee][Ss][Tt][Ss][Cc][Ee][Nn][Ee].unity
+**/*[Tt][Ee][Ss][Tt][Ss][Cc][Ee][Nn][Ee].unity.meta
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
