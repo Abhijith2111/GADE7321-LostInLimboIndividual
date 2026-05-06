@@ -58,7 +58,7 @@ public class StationaryEnemy : BaseEnemy
 		if (Physics.Linecast(
 			start: transform.position + Vector3.up * 0.5f,
 			end: playerPos + Vector3.up * 0.5f,
-			layerMask: ~(LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("TransparentFX") | LayerMask.NameToLayer("Ignore Raycast")),
+			layerMask: ~((1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("TransparentFX")) | (1 << LayerMask.NameToLayer("Ignore Raycast"))),
 			queryTriggerInteraction: QueryTriggerInteraction.Ignore)) // If hit something that isn't player or another enemy (or any other trigger) line of sight is blocked
 		{
 			m_AnimationLinker.DoAttack = false;
