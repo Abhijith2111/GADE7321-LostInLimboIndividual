@@ -26,8 +26,14 @@ public class StationaryEnemy : BaseEnemy
 		Vector3 offsetPos = transform.position + Vector3.up * 0.5f;
 		Vector3 rightLine = new Vector3(Mathf.Sin((transform.eulerAngles.y + m_AttackFOV / 2f) * Mathf.Deg2Rad), 0f, Mathf.Cos((transform.eulerAngles.y + m_AttackFOV / 2f) * Mathf.Deg2Rad));
 		Vector3 leftLine = new Vector3(Mathf.Sin((transform.eulerAngles.y + -m_AttackFOV / 2f) * Mathf.Deg2Rad), 0f, Mathf.Cos((transform.eulerAngles.y + -m_AttackFOV / 2f) * Mathf.Deg2Rad));
-		Debug.DrawLine(offsetPos, offsetPos + rightLine * m_ActivationDistance, Color.red);
-		Debug.DrawLine(offsetPos, offsetPos + leftLine * m_ActivationDistance, Color.red);
+		Debug.DrawLine(offsetPos, offsetPos + rightLine * m_ActivationDistance, Color.green);
+		Debug.DrawLine(offsetPos, offsetPos + leftLine * m_ActivationDistance, Color.green);
+		if (m_AnimationLinker && m_AnimationLinker.DoAttack)
+		{
+			Vector3 playerPos = m_Player.transform.position;
+			playerPos.y = transform.position.y;
+			Debug.DrawLine(transform.position + Vector3.up * 0.5f, playerPos + Vector3.up * 0.5f, Color.red);
+		}
 	}
 #endif
 
@@ -49,6 +55,15 @@ public class StationaryEnemy : BaseEnemy
 			return;
 		}
 		playerPos.y = transform.position.y;
+		if (Physics.Linecast(
+			start: transform.position + Vector3.up * 0.5f,
+			end: playerPos + Vector3.up * 0.5f,
+			layerMask: ~(LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("TransparentFX") | LayerMask.NameToLayer("Ignore Raycast")),
+			queryTriggerInteraction: QueryTriggerInteraction.Ignore)) // If hit something that isn't player or another enemy (or any other trigger) line of sight is blocked
+		{
+			m_AnimationLinker.DoAttack = false;
+			return; 
+		}
 		Vector3 toPlayer = (playerPos - transform.position).normalized;
 		float cos = Vector3.Dot(m_StartingForward, (playerPos - transform.position).normalized);
 		float angle = Mathf.Acos(cos) * Mathf.Rad2Deg;
