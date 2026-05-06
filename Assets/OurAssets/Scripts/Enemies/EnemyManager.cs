@@ -17,8 +17,8 @@ public class EnemyManager : MonoBehaviour
     int m_StationaryEnemyCount = 3; // Probably going to need more but 3 is fine for now
     [SerializeField]
     List<EnemyPatrolPoints> m_EnemyPatrolPoints;
-    //[SerializeField]
-    //PatrollingEnemy m_PatrollingEnemyPrefab;
+    [SerializeField]
+    PatrollingEnemy m_PatrollingEnemyPrefab;
     [SerializeField, Min(1)]
     int m_PatrollingEnemyCount = 3; // Same thing as before
 
@@ -27,12 +27,22 @@ public class EnemyManager : MonoBehaviour
     // because c# intellisense doesn't tell you like c++ but I'm sure it's
     // not that much. Probably will delete the later, who knows
 	List<StationaryEnemy> m_StationaryEnemies = new List<StationaryEnemy>();
-    //List<PatrollingEnemy> m_PatrollingEnemies = new List<PatrollingEnemy>();
+    List<PatrollingEnemy> m_PatrollingEnemies = new List<PatrollingEnemy>();
+    // What do you know they did have a use in the end :)
 
     void Start()
     {
         SpawnStationaryEnemies();
         SpawnPatrollingEnemies();
+        // Enable all the enemies once all of them are spawned in
+        foreach (StationaryEnemy stationaryEnemy in m_StationaryEnemies)
+        {
+            stationaryEnemy.Enabled = true;
+        }
+        foreach (PatrollingEnemy patrollingEnemy in m_PatrollingEnemies)
+        {
+            patrollingEnemy.Enabled = true;
+        }
     }
 
 	void SpawnStationaryEnemies()
@@ -58,8 +68,8 @@ public class EnemyManager : MonoBehaviour
 		Shuffle(_patrols);
 		for (int i = 0; i < patrollersToSpawn; ++i)
 		{
-			//PatrollingEnemy enemy = EnemyFactory.Instance.Create<PatrollingEnemy>(m_PatrollingEnemyPrefab, _patrols[i]);
-			//m_PatrollingEnemies.Add(enemy);
+			PatrollingEnemy enemy = EnemyFactory.Instance.Create<PatrollingEnemy>(m_PatrollingEnemyPrefab, _patrols[i]);
+			m_PatrollingEnemies.Add(enemy);
 		}
     }
 

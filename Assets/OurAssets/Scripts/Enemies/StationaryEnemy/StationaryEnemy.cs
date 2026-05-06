@@ -37,6 +37,11 @@ public class StationaryEnemy : BaseEnemy
 
 	void Update()
 	{
+		if (!Enabled)
+		{
+			m_AnimationLinker.DoAttack = false;
+			return;
+		}
 		Vector3 playerPos = m_Player.transform.position;
 		if (Vector3.Distance(transform.position, playerPos) > m_ActivationDistance)
 		{

@@ -40,7 +40,6 @@ public class EnemyFactory : MonoBehaviour
 	/// <returns>A <see cref="BaseEnemy"/> of the type <typeparamref name="T"/></returns>
 	public T Create<T>(params object[] args) where T : BaseEnemy => m_EnemyFactory.Create(typeof(T), args) as T;
 
-    // Need patrolling enemy from abhi
     class EnemyFactoryInternal : AbstractFactory<BaseEnemy>
 	{
 		public override BaseEnemy Create(params object[] args)
@@ -59,29 +58,30 @@ public class EnemyFactory : MonoBehaviour
                 }
                 return CreateStationaryEnemy(prefab, parent);
             }
-            //else if (t == typeof(PatrollingEnemy))
-			//{
-			//	if (args.Length != 3 || args[1] is not PatrollingEnemy prefab || args[2] is not EnemyPatrolPoints points)
-            //    {
-            //        Debug.LogWarning("To spawn a patrolling enemy args[1] needs to be the prefab and args[2] needs to be the patrol points");
-            //        return null;
-            //    }
-			//}
+            else if (t == typeof(PatrollingEnemy))
+			{
+				if (args.Length != 3 || args[1] is not PatrollingEnemy prefab || args[2] is not EnemyPatrolPoints points)
+                {
+                    Debug.LogWarning("To spawn a patrolling enemy args[1] needs to be the prefab and args[2] needs to be the patrol points");
+                    return null;
+                }
+                return CreatePatrollingEnemy(prefab, points);
+			}
 			throw new NotImplementedException($"There is no definition to create an enemy of type {t}");
 		}
 
         StationaryEnemy CreateStationaryEnemy(StationaryEnemy prefab, Transform parent) => Instantiate(prefab.gameObject, parent).GetComponent<StationaryEnemy>();
 
-        //PatrollingEnemy CreatePatrollingEnemy(PatrollingEnemy prefab, EnemyPatrolPoints points)
-        //{
-        //    PatrollingEnemy enemy = Instantiate(prefab.gameObject, points.PatrolPoints[0]).GetComponent<PatrollingEnemy>();
-        //    LinkedListADT<Transform> patrolPoints = new LinkedListADT<Transform>();
-        //    foreach (Transform point in points.PatrolPoints)
-        //    {
-        //        patrolPoints.AddBack(point);
-        //    }
-        //    enemy.PatrolPoints = patrolPoints;
-        //    return enemy;
-        //}
+        PatrollingEnemy CreatePatrollingEnemy(PatrollingEnemy prefab, EnemyPatrolPoints points)
+        {
+            PatrollingEnemy enemy = Instantiate(prefab.gameObject, points.PatrolPoints[0]).GetComponent<PatrollingEnemy>();
+            LinkedListADT<Transform> patrolPoints = new LinkedListADT<Transform>();
+            foreach (Transform point in points.PatrolPoints)
+            {
+                patrolPoints.AddBack(point);
+            }
+            enemy.SetPatrolPoints(patrolPoints);
+            return enemy;
+        }
 	}
 }
