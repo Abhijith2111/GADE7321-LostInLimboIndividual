@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float defaultHeight = 1.6f;
     public float crouchHeight = 0.8f;
     public float crouchSpeed = 3f;
+    public float slopeSlideSpeed = 9f;
     [SerializeField, Min(0f)]
     float groundDistance = 0.1f; // David added
     [SerializeField]
@@ -54,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
     float currentCoyoteTime; // David added
     float currentJumpBuffer; // David added
+
+    RaycastHit groundHit; // David added
 
     void Awake()
     {
@@ -97,14 +100,14 @@ public class PlayerMovement : MonoBehaviour
         // ground distance is large and sphere cast fixes that, idk if this actually
         // matters too much or not, but it's such an edge case that testing is hard
         isGrounded = transform.parent != startingParent
-            || Physics.SphereCast(
+            || (Physics.SphereCast(
             origin: transform.position + Vector3.up * (characterController.radius + 0.01f), // David - Move slightly up because otherwise returns false sometimes (specfically on start)
             radius: characterController.radius,
             direction: Vector3.down,
-            hitInfo: out RaycastHit _,
+            hitInfo: out groundHit,
             maxDistance: groundDistance + 0.01f, // David - Move slightly further to compensate for being slightly higher
             layerMask: groundMask,
-            queryTriggerInteraction: QueryTriggerInteraction.Ignore); // David - On floating/moving platform or on ground
+            queryTriggerInteraction: QueryTriggerInteraction.Ignore) && Vector3.Angle(groundHit.normal, Vector3.up) <= characterController.slopeLimit); // David - On floating/moving platform or on ground
 
         // David - Set last stable ground if we're grounded and can move so can teleport back
         // if needed
@@ -165,6 +168,8 @@ public class PlayerMovement : MonoBehaviour
         characterController.center = new Vector3(characterController.center.x, characterController.height / 2f, characterController.center.z);
 
         SetAnimatorValues();
+
+        if (Vector3.Angle(groundHit.normal, Vector3.up) > characterController.slopeLimit) moveDirection = Vector3.ProjectOnPlane(Vector3.up * -slopeSlideSpeed, groundHit.normal);
 
         characterController.Move(moveDirection * Time.deltaTime);
     }
