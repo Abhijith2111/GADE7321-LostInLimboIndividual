@@ -19080,7 +19080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EndDialogueTrigger
   notEnoughItems: 0
   endDialogue: 1
-  nextSceneIndex: 2
+  nextSceneIndex: 1
 --- !u!114 &2032175901
 MonoBehaviour:
   m_ObjectHideFlags: 0
