@@ -15,9 +15,9 @@ public class LinkedListADT<T> : ICollection<T>, IReadOnlyCollection<T>
 
 	public LinkedListADT(IEnumerable<T> collection, bool isCircular = true)
 	{
+		IsCircular = isCircular;
 		if (collection == null) throw new System.ArgumentNullException("collection");
 		foreach (T item in collection) AddBack(item);
-		IsCircular = isCircular;
 	}
 
 	public void AddFront(LinkedListADTNode<T> node)
