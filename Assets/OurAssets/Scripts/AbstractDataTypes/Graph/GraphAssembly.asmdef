@@ -1,0 +1,18 @@
+{
+    "name": "GraphAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:dd3a623cef66c9c4183e14251228867f",
+        "GUID:bf47f3856d836a94bb577bbb180c01ef",
+        "GUID:f753f84f858c5a947b6bae65716289d8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
