@@ -96,7 +96,7 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
         int index = GetEntryIndex(item.Key);
         if (index >= 0 && m_ValueComparer.Equals(m_Entries[index].Value, item.Value))
         {
-            Remove(index);
+            Remove(item.Key);
             return true;
         }
         return false;
@@ -104,8 +104,25 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
 
     public void Remove(TKey key)
     {
-        int index = GetEntryIndex(key); // GetValueIndex(TKey) already null checks key
-        if (index >= 0) Remove(index);
+        if (key == null) throw new ArgumentNullException(nameof(key));
+        if (m_Buckets == null) return;
+        var (hashCode, bucketIndex, entryIndex) = Hash(key);
+        int prev = -1;
+        for (int i = entryIndex; i >= 0; prev = i, i = m_Entries[i].NextIndex)
+        {
+            if (m_Entries[i].HashCode == hashCode && m_KeyComparer.Equals(m_Entries[i].Key, key))
+            {
+                if (prev < 0) m_Buckets[bucketIndex] = m_Entries[i].NextIndex; // Head so set the bucket to point at next index instead
+                else m_Entries[prev].NextIndex = m_Entries[i].NextIndex; // Not head so set entry that pointed to this, to point at whatever this pointed to
+                m_Entries[i].HashCode = -1;
+                m_Entries[i].NextIndex = m_NextFreeIndex;
+                m_Entries[i].Key = default;
+                m_Entries[i].Value = default;
+                m_NextFreeIndex = i;
+                if (--Count < m_Entries.Length / 4) Resize(m_Entries.Length / 2);
+                return; // Found so stop looping
+            }
+        }
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -170,15 +187,6 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
         m_Entries[index].Value = value;
         m_Buckets[bucketIndex] = index;
         ++Count;
-    }
-
-    void Remove(int index)
-    {
-        m_Entries[index].HashCode = -1;
-        m_Entries[index].NextIndex = m_NextFreeIndex;
-        m_Entries[index].Key = default;
-        m_Entries[index].Value = default;
-        if (--Count < m_Entries.Length / 4) Resize(m_Entries.Length / 2);
     }
 
     // Set new capacity and recalculate hashes
