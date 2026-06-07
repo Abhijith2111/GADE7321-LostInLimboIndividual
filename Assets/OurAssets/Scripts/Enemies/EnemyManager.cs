@@ -7,6 +7,19 @@ public struct EnemyPatrolPoints
     public List<Transform> PatrolPoints;
 }
 
+[System.Serializable]
+public struct BossPatrolNode
+{
+    public Transform Node;
+    public List<Transform> ConnectedNodes;
+}
+
+[System.Serializable]
+public struct BossPatrolPoints
+{
+    public List<BossPatrolNode> PatrolNodes;
+}
+
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
@@ -21,19 +34,27 @@ public class EnemyManager : MonoBehaviour
     PatrollingEnemy m_PatrollingEnemyPrefab;
     [SerializeField, Min(1)]
     int m_PatrollingEnemyCount = 3; // Same thing as before
+    [SerializeField]
+    List<BossPatrolPoints> m_BossPatrolPoints;
+    [SerializeField]
+    BossAI m_BossAIPrefab;
+    [SerializeField, Min(1)]
+    int m_BossAICount = 3; // Same thing as before
 
-	// Are these lists even needed? Idk if we need to access these enemies at
+    // Are these lists even needed? Idk if we need to access these enemies at
     // all so I'm storing them in lists in case. Idk how much ram it uses
     // because c# intellisense doesn't tell you like c++ but I'm sure it's
     // not that much. Probably will delete the later, who knows
-	List<StationaryEnemy> m_StationaryEnemies = new List<StationaryEnemy>();
+    List<StationaryEnemy> m_StationaryEnemies = new List<StationaryEnemy>();
     List<PatrollingEnemy> m_PatrollingEnemies = new List<PatrollingEnemy>();
+    List<BossAI> m_BossAIs = new List<BossAI>();
     // What do you know they did have a use in the end :)
 
     void Start()
     {
         SpawnStationaryEnemies();
         SpawnPatrollingEnemies();
+        SpawnBossAIs();
         // Enable all the enemies once all of them are spawned in
         foreach (StationaryEnemy stationaryEnemy in m_StationaryEnemies)
         {
@@ -43,46 +64,64 @@ public class EnemyManager : MonoBehaviour
         {
             patrollingEnemy.Enabled = true;
         }
+        foreach (BossAI bossAI in m_BossAIs)
+        {
+            bossAI.Enabled = true;
+        }
     }
 
-	void SpawnStationaryEnemies()
-	{
+    void SpawnStationaryEnemies()
+    {
         if (m_StationaryEnemySpawns.Count == 0) return;
-		// If too many that there is no free spawns then use 75% of the spawns
-		int stationariesToSpawn = m_StationaryEnemyCount >= m_StationaryEnemySpawns.Count ? Mathf.CeilToInt(m_StationaryEnemySpawns.Count * 0.75f) : m_StationaryEnemyCount;
+        // If too many that there is no free spawns then use 75% of the spawns
+        int stationariesToSpawn = m_StationaryEnemyCount >= m_StationaryEnemySpawns.Count ? Mathf.CeilToInt(m_StationaryEnemySpawns.Count * 0.75f) : m_StationaryEnemyCount;
         List<Transform> _spawns = new List<Transform>(m_StationaryEnemySpawns);
         Shuffle(_spawns);
         for (int i = 0; i < stationariesToSpawn; ++i)
         {
-			StationaryEnemy enemy = EnemyFactory.Instance.Create<StationaryEnemy>(m_StationaryEnemyPrefab, _spawns[i]);
-			m_StationaryEnemies.Add(enemy);
-		}
-	}
-
-    void SpawnPatrollingEnemies() // Just need patrolling enemy code from abhi
-    {
-		if (m_EnemyPatrolPoints.Count == 0) return;
-		// If too many that there is no free spawns then use 75% of the spawns
-		int patrollersToSpawn = m_PatrollingEnemyCount >= m_EnemyPatrolPoints.Count ? Mathf.CeilToInt(m_EnemyPatrolPoints.Count * 0.75f) : m_PatrollingEnemyCount;
-		List<EnemyPatrolPoints> _patrols = new List<EnemyPatrolPoints>(m_EnemyPatrolPoints);
-		Shuffle(_patrols);
-		for (int i = 0; i < patrollersToSpawn; ++i)
-		{
-			PatrollingEnemy enemy = EnemyFactory.Instance.Create<PatrollingEnemy>(m_PatrollingEnemyPrefab, _patrols[i]);
-			m_PatrollingEnemies.Add(enemy);
-		}
+            StationaryEnemy enemy = EnemyFactory.Instance.Create<StationaryEnemy>(m_StationaryEnemyPrefab, _spawns[i]);
+            m_StationaryEnemies.Add(enemy);
+        }
     }
 
-	// Normally I'd write shuffle and swap as extensions but we only need them once so
-	// just simple methods are fine
+    void SpawnPatrollingEnemies()
+    {
+        if (m_EnemyPatrolPoints.Count == 0) return;
+        // If too many that there is no free spawns then use 75% of the spawns
+        int patrollersToSpawn = m_PatrollingEnemyCount >= m_EnemyPatrolPoints.Count ? Mathf.CeilToInt(m_EnemyPatrolPoints.Count * 0.75f) : m_PatrollingEnemyCount;
+        List<EnemyPatrolPoints> _patrols = new List<EnemyPatrolPoints>(m_EnemyPatrolPoints);
+        Shuffle(_patrols);
+        for (int i = 0; i < patrollersToSpawn; ++i)
+        {
+            PatrollingEnemy enemy = EnemyFactory.Instance.Create<PatrollingEnemy>(m_PatrollingEnemyPrefab, _patrols[i]);
+            m_PatrollingEnemies.Add(enemy);
+        }
+    }
 
-	// Fisher-Yates shuffle: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-	void Shuffle<T>(List<T> list)
+    void SpawnBossAIs()
+    {
+        if (m_BossPatrolPoints.Count == 0) return;
+        // If too many that there is no free spawns then use 75% of the spawns
+        int bossesToSpawn = m_BossAICount >= m_BossPatrolPoints.Count ? Mathf.CeilToInt(m_BossPatrolPoints.Count * 0.75f) : m_BossAICount;
+        List<BossPatrolPoints> _patrols = new List<BossPatrolPoints>(m_BossPatrolPoints);
+        Shuffle(_patrols);
+        for (int i = 0; i < bossesToSpawn; ++i)
+        {
+            BossAI enemy = EnemyFactory.Instance.Create<BossAI>(m_PatrollingEnemyPrefab, _patrols[i]);
+            m_BossAIs.Add(enemy);
+        }
+    }
+
+    // Normally I'd write shuffle and swap as extensions but we only need them once so
+    // just simple methods are fine
+
+    // Fisher-Yates shuffle: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+    void Shuffle<T>(List<T> list)
     {
         // I genuinely don't know why all the examples use a while-loop. I think the
         // original was written in a language that didn't have for-loops, but come on
         // people, the for-loop does the exact same thing and in less lines smh
-		System.Random rng = new System.Random();
+        System.Random rng = new System.Random();
         for (int i = list.Count - 1; i > 0; --i) // Go until 1 because no need to swap index 0 with itself
         {
             int j = rng.Next(i + 1); // Max is exclusive, dw, no index out of bounds exceptions here

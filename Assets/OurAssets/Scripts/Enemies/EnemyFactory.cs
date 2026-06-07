@@ -34,6 +34,7 @@ public class EnemyFactory : MonoBehaviour
     /// <summary>
     /// <para>To create a <see cref="StationaryEnemy"/>, args = (<see cref="StationaryEnemy"/> prefab, <see cref="Transform"/> parent)</para>
     /// <para>To create a <see cref="PatrollingEnemy"/>, args = (<seealso cref="PatrollingEnemy"/> prefab, <see cref="EnemyPatrolPoints"/> points)</para>
+    /// <para>To create a <see cref="BossAI"/>, args = (<seealso cref="BossAI"/> prefab, <see cref="BossPatrolPoints"/> points)</para>
     /// </summary>
     /// <typeparam name="T">The type of <see cref="BaseEnemy"/> to create</typeparam>
     /// <param name="args">The arguments needed to create the enemy</param>
@@ -73,6 +74,15 @@ public class EnemyFactory : MonoBehaviour
                 }
                 return CreatePatrollingEnemy(prefab, points);
             }
+            else if (t == typeof(BossAI))
+            {
+                if (args.Length != 3 || args[1] is not BossAI prefab || args[2] is not BossPatrolPoints points)
+                {
+                    Debug.LogWarning("To spawn a boss args[1] needs to be the prefab and args[2] needs to be the patrol points");
+                    return null;
+                }
+                return CreateBossAI(prefab, points);
+            }
             throw new NotImplementedException($"There is no definition to create an enemy of type {t}");
         }
 
@@ -83,6 +93,23 @@ public class EnemyFactory : MonoBehaviour
             PatrollingEnemy enemy = Instantiate(prefab.gameObject, points.PatrolPoints[0]).GetComponent<PatrollingEnemy>();
             LinkedListADT<Transform> patrolPoints = new LinkedListADT<Transform>(points.PatrolPoints);
             enemy.SetPatrolPoints(patrolPoints);
+            return enemy;
+        }
+
+        BossAI CreateBossAI(BossAI prefab, BossPatrolPoints points)
+        {
+            GraphADT<Transform> graph = new GraphADT<Transform>();
+            foreach (BossPatrolNode node in points.PatrolNodes)
+            {
+                GraphADTNode<Transform> _node = graph.Find(node.Node) ?? graph.CreateNode(node.Node); // Find node if it exists already or create if it doesn't
+                foreach (Transform connection in node.ConnectedNodes)
+                {
+                    GraphADTNode<Transform> _connection = graph.Find(connection) ?? graph.CreateNode(connection); // Find node if it exists already or create if it doesn't
+                    graph.CreateConnection(_node, _connection); // Create connection between the nodes
+                }
+            }
+            BossAI enemy = Instantiate(prefab.gameObject, graph.Nodes[0].Value).GetComponent<BossAI>();
+            enemy.SetPatrolPoints(graph);
             return enemy;
         }
     }
