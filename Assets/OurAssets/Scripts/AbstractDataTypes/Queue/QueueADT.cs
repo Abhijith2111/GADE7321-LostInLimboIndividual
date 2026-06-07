@@ -22,7 +22,7 @@ public class QueueADT<T> : IReadOnlyCollection<T>
     public QueueADT(int capacity)
     {
         if (capacity < 0) throw new ArgumentException("capacity needs to be greater than or equal to 0");
-        m_Array = new T[capacity];
+        m_Array = capacity > 0 ? new T[capacity] : Array.Empty<T>();
         Count = 0;
         m_Front = 0;
         m_Comparer = EqualityComparer<T>.Default;
