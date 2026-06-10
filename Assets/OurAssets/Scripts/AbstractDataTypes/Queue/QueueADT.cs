@@ -51,13 +51,12 @@ public class QueueADT<T> : IReadOnlyCollection<T>
         T item = m_Array[m_Front];
         m_Array[m_Front++] = default;
         --Count;
-        if (Count < m_Array.Length / 4) Resize(m_Array.Length / 2);
         return item;
     }
 
     public void Clear()
     {
-        m_Array = Array.Empty<T>();
+        Array.Clear(m_Array, m_Front, Count);
         Count = 0;
         m_Front = 0;
     }
@@ -101,7 +100,7 @@ public class QueueADT<T> : IReadOnlyCollection<T>
         {
             Array.Copy(m_Array, m_Front, m_Array, 0, Count);
             m_Front = 0;
-            if (newCapacity > m_Array.Length) return; // After we moved everything to the start of the array there is no longer a need to grow
+            return; // After we moved everything to the start of the array there is no longer a need to grow
         }
         if (newCapacity > 0) Array.Resize(ref m_Array, newCapacity);
         else m_Array = Array.Empty<T>();

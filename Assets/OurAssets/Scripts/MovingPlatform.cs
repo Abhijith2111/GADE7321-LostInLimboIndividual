@@ -63,8 +63,8 @@ public class MovingPlatform : MonoBehaviour
 		EnsureValidCurve();
 	}
 
-    void Update()
-    {
+	void Update()
+	{
 		m_CurrentTime += Time.deltaTime;
 		float minTime = m_MotionCurve[0].time;
 		float minValue = m_MotionCurve[0].value;

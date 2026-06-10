@@ -48,13 +48,12 @@ public class StackADT<T> : IReadOnlyCollection<T>
         if (IsEmpty) throw new EmptyStackException("The stack has no items to access");
         T item = m_Array[--Count];
         m_Array[Count] = default;
-        if (Count < m_Array.Length / 4) Resize(m_Array.Length / 2);
         return item;
     }
 
     public void Clear()
     {
-        m_Array = Array.Empty<T>();
+        Array.Clear(m_Array, 0, Count);
         Count = 0;
     }
 

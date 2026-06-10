@@ -10,6 +10,8 @@ using System.Collections.Generic;
 // combining some of the feature I prefer from both
 public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, IReadOnlyCollection<KeyValuePair<TKey, TValue>>
 {
+    public bool IsEmpty => Count == 0;
+
     public int Count { get; private set; }
 
     public bool IsReadOnly => false;
@@ -63,8 +65,7 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
 
     public void Clear()
     {
-        m_Buckets = Array.Empty<LinkedListADT<KeyValuePair<TKey, TValue>>>();
-        m_Capacity = 0;
+        foreach (var bucket in m_Buckets) bucket.Clear();
         Count = 0;
     }
 
@@ -97,7 +98,6 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
         if (!entry || !m_ValueComparer.Equals(entry.Value.Value, item.Value)) return false;
         int bucketIndex = BucketIndex(item.Key);
         m_Buckets[bucketIndex].Remove(entry);
-        if (--Count < m_Capacity / 4) Resize(m_Capacity / 2);
         return true;
     }
 
@@ -108,7 +108,6 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
         if (!entry) return;
         int bucketIndex = BucketIndex(key);
         m_Buckets[bucketIndex].Remove(entry);
-        if (--Count < m_Capacity / 4) Resize(m_Capacity / 2);
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

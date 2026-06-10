@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 public class GraphADT<T>
@@ -22,14 +23,14 @@ public class GraphADT<T>
 
     public void AddNode(GraphADTNode<T> node)
     {
-        if (node.Graph != null) throw new System.ArgumentException("Node already belongs to another graph");
+        if (node.Graph != null) throw new ArgumentException("Node already belongs to another graph");
         node.Graph = this;
         m_Nodes.Add(node);
     }
 
     public void RemoveNode(GraphADTNode<T> node)
     {
-        if (node.Graph != this) throw new System.ArgumentException("Node doesn't belong to this graph");
+        if (node.Graph != this) throw new ArgumentException("Node doesn't belong to this graph");
         foreach (GraphADTNode<T> connection in node._connections)
         {
             connection._connections.Remove(node);
@@ -44,8 +45,8 @@ public class GraphADT<T>
     {
         nodeA.Graph ??= this;
         nodeB.Graph ??= this;
-        if (nodeA.Graph != this) throw new System.ArgumentException("nodeA doesn't belong to this graph");
-        if (nodeB.Graph != this) throw new System.ArgumentException("nodeB doesn't belong to this graph");
+        if (nodeA.Graph != this) throw new ArgumentException("nodeA doesn't belong to this graph");
+        if (nodeB.Graph != this) throw new ArgumentException("nodeB doesn't belong to this graph");
         if (nodeA._connections.Contains(nodeB)) return; // Don't want to add duplicate connections
         nodeA._connections.Add(nodeB);
         nodeB._connections.Add(nodeA);
@@ -53,8 +54,8 @@ public class GraphADT<T>
 
     public void RemoveConnection(GraphADTNode<T> nodeA, GraphADTNode<T> nodeB)
     {
-        if (nodeA.Graph != this) throw new System.ArgumentException("nodeA doesn't belong to this graph");
-        if (nodeB.Graph != this) throw new System.ArgumentException("nodeB doesn't belong to this graph");
+        if (nodeA.Graph != this) throw new ArgumentException("nodeA doesn't belong to this graph");
+        if (nodeB.Graph != this) throw new ArgumentException("nodeB doesn't belong to this graph");
         nodeA._connections.Remove(nodeB);
         nodeB._connections.Remove(nodeA);
     }
@@ -110,8 +111,8 @@ public class GraphADT<T>
 
     public GraphADTNode<T>[] GetPathBFS(GraphADTNode<T> startNode, GraphADTNode<T> endNode)
     {
-        if (startNode.Graph != this) throw new System.ArgumentException("startNode doesn't belong to this graph");
-        if (endNode.Graph != this) throw new System.ArgumentException("endNode doesn't belong to this graph");
+        if (startNode.Graph != this) throw new ArgumentException("startNode doesn't belong to this graph");
+        if (endNode.Graph != this) throw new ArgumentException("endNode doesn't belong to this graph");
         QueueADT<GraphADTNode<T>> toSearch = new QueueADT<GraphADTNode<T>>();
         HashSet<GraphADTNode<T>> searched = new HashSet<GraphADTNode<T>>(Count);
         HashMapADT<GraphADTNode<T>, GraphADTNode<T>> previousNodes = new HashMapADT<GraphADTNode<T>, GraphADTNode<T>>(Count);
@@ -145,7 +146,7 @@ public class GraphADT<T>
 
     public GraphADTNode<T>[] GetPathBFS(GraphADTNode<T> startNode, T value)
     {
-        if (startNode.Graph != this) throw new System.ArgumentException("startNode doesn't belong to this graph");
+        if (startNode.Graph != this) throw new ArgumentException("startNode doesn't belong to this graph");
         QueueADT<GraphADTNode<T>> toSearch = new QueueADT<GraphADTNode<T>>();
         HashSet<GraphADTNode<T>> searched = new HashSet<GraphADTNode<T>>(Count);
         HashMapADT<GraphADTNode<T>, GraphADTNode<T>> previousNodes = new HashMapADT<GraphADTNode<T>, GraphADTNode<T>>(Count);
@@ -179,7 +180,7 @@ public class GraphADT<T>
 
     public GraphADTNode<T> FindBFS(GraphADTNode<T> startNode, T value)
     {
-        if (startNode.Graph != this) throw new System.ArgumentException("startNode doesn't belong to this graph");
+        if (startNode.Graph != this) throw new ArgumentException("startNode doesn't belong to this graph");
         QueueADT<GraphADTNode<T>> toSearch = new QueueADT<GraphADTNode<T>>();
         HashSet<GraphADTNode<T>> searched = new HashSet<GraphADTNode<T>>(Count);
         toSearch.Enqueue(startNode);
@@ -200,7 +201,7 @@ public class GraphADT<T>
 
     public void RemoveBFS(GraphADTNode<T> startNode, T value)
     {
-        if (startNode.Graph != this) throw new System.ArgumentException("startNode doesn't belong to this graph");
+        if (startNode.Graph != this) throw new ArgumentException("startNode doesn't belong to this graph");
         QueueADT<GraphADTNode<T>> toSearch = new QueueADT<GraphADTNode<T>>();
         HashSet<GraphADTNode<T>> searched = new HashSet<GraphADTNode<T>>(Count);
         toSearch.Enqueue(startNode);
@@ -224,8 +225,8 @@ public class GraphADT<T>
 
     public GraphADTNode<T>[] GetPathDFS(GraphADTNode<T> startNode, GraphADTNode<T> endNode)
     {
-        if (startNode.Graph != this) throw new System.ArgumentException("startNode doesn't belong to this graph");
-        if (endNode.Graph != this) throw new System.ArgumentException("endNode doesn't belong to this graph");
+        if (startNode.Graph != this) throw new ArgumentException("startNode doesn't belong to this graph");
+        if (endNode.Graph != this) throw new ArgumentException("endNode doesn't belong to this graph");
         StackADT<GraphADTNode<T>> toSearch = new StackADT<GraphADTNode<T>>();
         HashMapADT<GraphADTNode<T>, int> nextConnectionIndex = new HashMapADT<GraphADTNode<T>, int>(Count);
         HashSet<GraphADTNode<T>> searched = new HashSet<GraphADTNode<T>>(Count);
@@ -259,7 +260,7 @@ public class GraphADT<T>
 
     public GraphADTNode<T>[] GetPathDFS(GraphADTNode<T> startNode, T value)
     {
-        if (startNode.Graph != this) throw new System.ArgumentException("startNode doesn't belong to this graph");
+        if (startNode.Graph != this) throw new ArgumentException("startNode doesn't belong to this graph");
         StackADT<GraphADTNode<T>> toSearch = new StackADT<GraphADTNode<T>>();
         HashMapADT<GraphADTNode<T>, int> nextConnectionIndex = new HashMapADT<GraphADTNode<T>, int>(Count);
         HashSet<GraphADTNode<T>> searched = new HashSet<GraphADTNode<T>>(Count);
@@ -293,7 +294,7 @@ public class GraphADT<T>
 
     public GraphADTNode<T> FindDFS(GraphADTNode<T> startNode, T value)
     {
-        if (startNode.Graph != this) throw new System.ArgumentException("startNode doesn't belong to this graph");
+        if (startNode.Graph != this) throw new ArgumentException("startNode doesn't belong to this graph");
         StackADT<GraphADTNode<T>> toSearch = new StackADT<GraphADTNode<T>>();
         HashMapADT<GraphADTNode<T>, int> nextConnectionIndex = new HashMapADT<GraphADTNode<T>, int>(Count);
         HashSet<GraphADTNode<T>> searched = new HashSet<GraphADTNode<T>>(Count);
@@ -323,7 +324,7 @@ public class GraphADT<T>
 
     public void RemoveDFS(GraphADTNode<T> startNode, T value)
     {
-        if (startNode.Graph != this) throw new System.ArgumentException("startNode doesn't belong to this graph");
+        if (startNode.Graph != this) throw new ArgumentException("startNode doesn't belong to this graph");
         StackADT<GraphADTNode<T>> toSearch = new StackADT<GraphADTNode<T>>();
         HashMapADT<GraphADTNode<T>, int> nextConnectionIndex = new HashMapADT<GraphADTNode<T>, int>(Count);
         HashSet<GraphADTNode<T>> searched = new HashSet<GraphADTNode<T>>(Count);
