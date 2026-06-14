@@ -12898,6 +12898,9 @@ MonoBehaviour:
     - {fileID: 248536565}
   m_PatrollingEnemyPrefab: {fileID: 3044690901401101381, guid: c544b474b5fbfb84cabaece9a9d6b8be, type: 3}
   m_PatrollingEnemyCount: 13
+  m_BossPatrolPoints: []
+  m_BossAIPrefab: {fileID: 0}
+  m_BossAICount: 3
 --- !u!4 &957837304
 Transform:
   m_ObjectHideFlags: 0
