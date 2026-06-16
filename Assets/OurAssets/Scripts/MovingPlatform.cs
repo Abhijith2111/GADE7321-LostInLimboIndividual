@@ -3,6 +3,8 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
 	[SerializeField]
+	bool m_MoveOnStart = true;
+	[SerializeField]
 	Transform m_PointA;
 	[SerializeField]
 	Transform m_PointB;
@@ -11,6 +13,8 @@ public class MovingPlatform : MonoBehaviour
 
 	float m_CurrentTime = 0f;
 	bool m_bMoveAToB = true;
+
+	bool m_bIsActivated;
 
 	void EnsureValidCurve()
 	{
@@ -61,10 +65,12 @@ public class MovingPlatform : MonoBehaviour
 	{
 		transform.position = m_PointA.position;
 		EnsureValidCurve();
+		m_bIsActivated = m_MoveOnStart;
 	}
 
 	void Update()
 	{
+		if (!m_bIsActivated) return;
 		m_CurrentTime += Time.deltaTime;
 		float minTime = m_MotionCurve[0].time;
 		float minValue = m_MotionCurve[0].value;
@@ -79,4 +85,6 @@ public class MovingPlatform : MonoBehaviour
 		m_bMoveAToB = !m_bMoveAToB;
 		m_CurrentTime = 0f;
 	}
+
+	public void Activate() => m_bIsActivated = true;
 }
