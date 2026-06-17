@@ -1,67 +1,67 @@
 {
-	"dialogueItems": [
-		{
-			"name": "Story",
-			"icon": "none",
-			"text": "<i>Merzp, now close to the peak, receives a transmission request from Aldrich</i>",
-			"fontSize": 24,
-			"charactersPerSecond": 60
-		},
-		{
-			"name": "Aldrich Through the Comms Device",
-			"icon": "Dialogue/DialogueIcons/comms",
-			"text": "<i>Merzp, come in Merzp, over.</i>",
-			"fontSize": 24,
-			"charactersPerSecond": 40
-		},
-		{
-			"name": "Merzp",
-			"icon": "Dialogue/DialogueIcons/player",
-			"text": "Merzp, come in Merzp, over.",
-			"fontSize": 24,
-			"charactersPerSecond": 40
-		},
-		{
-			"name": "Aldrich Through the Comms Device",
-			"icon": "Dialogue/DialogueIcons/comms",
-			"text": "<i>Merzp, we miscalculated and you need something to get to the ships door, do you have anything around you, you could use as a sort of ladder?</i>",
-			"fontSize": 24,
-			"charactersPerSecond": 40
-		},
-		{
-			"name": "Story",
-			"icon": "none",
-			"text": "<i>Merzp assess her surroundings</i>",
-			"fontSize": 24,
-			"charactersPerSecond": 60
-		},
-		{
-			"name": "Merzp",
-			"icon": "Dialogue/DialogueIcons/player",
-			"text": "Yes, there is commander, I can use these rocks that are rather sticky as a way to make a step stool for me, over.",
-			"fontSize": 24,
-			"charactersPerSecond": 40
-		},
-		{
-			"name": "Aldrich Through the Comms Device",
-			"icon": "Dialogue/DialogueIcons/comms",
-			"text": "<i>Great! Use those to reach us then. Over and out.</i>",
-			"fontSize": 24,
-			"charactersPerSecond": 40
-		},
-		{
-			"name": "Story",
-			"icon": "none",
-			"text": "<i>Merzp notices more zombies</i>",
-			"fontSize": 24,
-			"charactersPerSecond": 60
-		},
-		{
-			"name": "Merzp",
-			"icon": "Dialogue/DialogueIcons/player",
-			"text": "More of those things, I should avoid them. Especially those bigger glorpnods who seem different from the rest.",
-			"fontSize": 24,
-			"charactersPerSecond": 40
-		}
-	]
+    "dialogueItems": [
+        {
+            "name": "Story",
+            "icon": "none",
+            "text": "<i>Merzp, now close to the peak, receives a transmission request from Aldrich</i>",
+            "fontSize": 24,
+            "charactersPerSecond": 60
+        },
+        {
+            "name": "Aldrich Through the Comms Device",
+            "icon": "Dialogue/DialogueIcons/comms",
+            "text": "<i>Merzp, come in Merzp, over.</i>",
+            "fontSize": 24,
+            "charactersPerSecond": 40
+        },
+        {
+            "name": "Merzp",
+            "icon": "Dialogue/DialogueIcons/player",
+            "text": "I am here Aldrich, over.",
+            "fontSize": 24,
+            "charactersPerSecond": 40
+        },
+        {
+            "name": "Aldrich Through the Comms Device",
+            "icon": "Dialogue/DialogueIcons/comms",
+            "text": "<i>Merzp, you going to need to find a way to reach us. The only clear landing site was on some flat rock formation here, you need to find a way to get up to us. Is there anything around you to use to get up to the ship, over.",
+            "fontSize": 24,
+            "charactersPerSecond": 40
+        },
+        {
+            "name": "Story",
+            "icon": "none",
+            "text": "<i>Merzp assess her surroundings</i>",
+            "fontSize": 24,
+            "charactersPerSecond": 60
+        },
+        {
+            "name": "Merzp",
+            "icon": "Dialogue/DialogueIcons/player",
+            "text": "Yes, there is commander, I can use these rocks that are rather sticky as a way to make a ladder for me, over.",
+            "fontSize": 24,
+            "charactersPerSecond": 40
+        },
+        {
+            "name": "Aldrich Through the Comms Device",
+            "icon": "Dialogue/DialogueIcons/comms",
+            "text": "<i>Great! Use those to reach us then. Over and out.</i>",
+            "fontSize": 24,
+            "charactersPerSecond": 40
+        },
+        {
+            "name": "Story",
+            "icon": "none",
+            "text": "<i>Merzp notices more zombies</i>",
+            "fontSize": 24,
+            "charactersPerSecond": 60
+        },
+        {
+            "name": "Merzp",
+            "icon": "Dialogue/DialogueIcons/player",
+            "text": "More of those things, I should avoid them. Especially those bigger glorpnods who seem different from the rest.",
+            "fontSize": 24,
+            "charactersPerSecond": 40
+        }
+    ]
 }
