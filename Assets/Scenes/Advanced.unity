@@ -13029,7 +13029,7 @@ MonoBehaviour:
   - {fileID: 1554368787}
   - {fileID: 1658892331}
   m_StationaryEnemyPrefab: {fileID: 9085000878380322406, guid: 849533338ae202348a18593cff6612cd, type: 3}
-  m_StationaryEnemyCount: 24
+  m_StationaryEnemyCount: 18
   m_EnemyPatrolPoints:
   - PatrolPoints:
     - {fileID: 660085460}
