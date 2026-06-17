@@ -159,11 +159,13 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
                 return;
             }
         }
-        if (Count == m_Capacity)
-        {
-            Resize(m_Capacity * 2);
-            bucketIndex = BucketIndex(key);
-        }
+        if (Count == m_Capacity) Resize(m_Capacity * 2);
+        InsertNoResize(key, value);
+    }
+
+    void InsertNoResize(TKey key, TValue value)
+    {
+        int bucketIndex = BucketIndex(key);
         m_Buckets[bucketIndex].AddBack(new KeyValuePair<TKey, TValue>(key, value));
         ++Count;
     }
@@ -178,6 +180,8 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
 
     void Resize(int newCapacity)
     {
+        var entries = new KeyValuePair<TKey, TValue>[Count];
+        CopyTo(entries, 0);
         m_Capacity = newCapacity;
         Count = 0;
         if (newCapacity == 0)
@@ -185,12 +189,10 @@ public class HashMapADT<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>,
             m_Buckets = Array.Empty<LinkedListADT<KeyValuePair<TKey, TValue>>>();
             return;
         }
-        var entries = new KeyValuePair<TKey, TValue>[Count];
-        CopyTo(entries, 0);
         if (newCapacity == 1) m_Buckets = new LinkedListADT<KeyValuePair<TKey, TValue>>[1];
         else m_Buckets = new LinkedListADT<KeyValuePair<TKey, TValue>>[newCapacity / 2];
         PopulateBuckets();
-        foreach (var entry in entries) Insert(entry.Key, entry.Value);
+        foreach (var entry in entries) InsertNoResize(entry.Key, entry.Value);
     }
 
     LinkedListADT<KeyValuePair<TKey, TValue>>[] m_Buckets;

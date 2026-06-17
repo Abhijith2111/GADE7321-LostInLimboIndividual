@@ -100,14 +100,12 @@ public class EnemyManager : MonoBehaviour
 
     void SpawnBossAIs()
     {
+        // David - Don't randomise boss enemies because only 3 and need be challenging
         if (m_BossPatrolPoints.Count == 0) return;
-        // If too many that there is no free spawns then use 75% of the spawns
-        int bossesToSpawn = m_BossAICount >= m_BossPatrolPoints.Count ? Mathf.CeilToInt(m_BossPatrolPoints.Count * 0.75f) : m_BossAICount;
-        List<BossPatrolPoints> _patrols = new List<BossPatrolPoints>(m_BossPatrolPoints);
-        Shuffle(_patrols);
+        int bossesToSpawn = Mathf.Min(m_BossAICount, m_BossPatrolPoints.Count);
         for (int i = 0; i < bossesToSpawn; ++i)
         {
-            BossAI enemy = EnemyFactory.Instance.Create<BossAI>(m_PatrollingEnemyPrefab, _patrols[i]);
+            BossAI enemy = EnemyFactory.Instance.Create<BossAI>(m_BossAIPrefab, m_BossPatrolPoints[i]);
             m_BossAIs.Add(enemy);
         }
     }

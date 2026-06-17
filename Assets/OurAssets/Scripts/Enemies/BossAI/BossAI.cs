@@ -4,11 +4,12 @@ using UnityEngine.AI;
 
 public class BossAI : BaseEnemy // Extend BaseEnemy so can damage player and be spawned in
 {
-    public enum State { Patrol, Chase, Attack }
+    public enum State { Patrol, Chase }
     public State currentState = State.Patrol;
 
     [Header("Patrol")]
     public float patrolSpeed = 9f;
+    public float patrolAngularSpeed = 120f; // David added
     private int nodeIndex = 0; // David - renamed from waypointIndex to nodeIndex
 
     [Header("Detection")]
@@ -18,8 +19,8 @@ public class BossAI : BaseEnemy // Extend BaseEnemy so can damage player and be 
     public LayerMask obstacleMask;
 
     [Header("Combat")]
-    public float attackRange = 2.5f;
     public float chaseSpeed = 12f;
+    public float chaseAngularSpeed = 360f; // David added
 
     private NavMeshAgent agent;
     private GraphADT<Transform> patrolPoints; // David added
@@ -61,6 +62,11 @@ public class BossAI : BaseEnemy // Extend BaseEnemy so can damage player and be 
         agent = GetComponent<NavMeshAgent>(); // David - Moved to awake instead of start
     }
 
+    void Start()
+    {
+        player = FindFirstObjectByType<PlayerMovement>().transform;
+    }
+
     void Update()
     {
         if (!Enabled) return; // David added
@@ -68,7 +74,6 @@ public class BossAI : BaseEnemy // Extend BaseEnemy so can damage player and be 
         {
             case State.Patrol: HandlePatrol(); break;
             case State.Chase: HandleChase(); break;
-            case State.Attack: HandleAttack(); break;
         }
     }
 
@@ -88,17 +93,14 @@ public class BossAI : BaseEnemy // Extend BaseEnemy so can damage player and be 
             end = nodes[Random.Range(0, nodes.Length)];
         } while (end == start); // David - Make sure end isn't start since randomly chosen
         nodeIndex = 0; // David - Reset index
-        // David - If fps < 50fps do depth-first search because it finds the first path rather than the shortest
-        // path, so that means it doesn't search through the whole graph like breadth-first search so it is faster
-        // and better for performance. If fps >= 50fps breadth-first search is fine since framerate is manageable
-        if (Time.unscaledDeltaTime < 1f / 50f + Mathf.Epsilon) return patrolPoints.GetPathDFS(start, end);
-        else return patrolPoints.GetPathBFS(start, end);
+        return patrolPoints.GetPathBFS(start, end);
     }
 
     void HandlePatrol()
     {
         path ??= GetPath(patrolPoints.Nodes[0]); // David - If no path (i.e. start of game) get path from first node
         agent.speed = patrolSpeed;
+        agent.angularSpeed = patrolAngularSpeed;
 
         if (CanSeePlayer())
         {
@@ -113,36 +115,29 @@ public class BossAI : BaseEnemy // Extend BaseEnemy so can damage player and be 
     void GoToNextWaypoint()
     {
         if (path == null) return;
-        if (nodeIndex == path.Length) path = GetPath(path[^1]); // David - If at end get new path
+        if (nodeIndex == path.Length - 1) path = GetPath(path[^1]); // David - If at end get new path
         agent.SetDestination(path[++nodeIndex].Value.position); // David - Go to next waypoint
     }
 
     void HandleChase()
     {
         agent.speed = chaseSpeed;
+        agent.angularSpeed = chaseAngularSpeed;
         agent.SetDestination(player.position);
 
         float dist = Vector3.Distance(transform.position, player.position);
-
-        if (dist <= attackRange)
-        {
-            currentState = State.Attack;
-        }
-        else if (!CanSeePlayer())
+        if (dist > sightRange || IsLineToPlayerBlocked())
         {
             currentState = State.Patrol;
-            GoToNextWaypoint();
+            agent.SetDestination(path[nodeIndex].Value.position);
         }
     }
 
-    void HandleAttack()
+    bool IsLineToPlayerBlocked()
     {
-        agent.ResetPath();
-        transform.LookAt(player);
-
-        float dist = Vector3.Distance(transform.position, player.position);
-        if (dist > attackRange)
-            currentState = State.Chase;
+        Vector3 toPlayer = player.position - transform.position;
+        float dist = toPlayer.magnitude;
+        return Physics.Raycast(transform.position + Vector3.up, toPlayer.normalized, dist, obstacleMask);
     }
 
     bool CanSeePlayer()
@@ -155,6 +150,6 @@ public class BossAI : BaseEnemy // Extend BaseEnemy so can damage player and be 
         float angle = Vector3.Angle(transform.forward, toPlayer);
         if (angle > sightAngle * 0.5f) return false;
 
-        return !Physics.Raycast(transform.position + Vector3.up, toPlayer.normalized, dist, obstacleMask);
+        return !IsLineToPlayerBlocked();
     }
 }

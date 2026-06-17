@@ -128,7 +128,7 @@ public class GraphADT<T>
                 GraphADTNode<T> _current = endNode;
                 while (_current != null)
                 {
-                    path.Push(current);
+                    path.Push(_current);
                     _current = previousNodes[_current];
                 }
                 return path.ToArray();
@@ -162,7 +162,7 @@ public class GraphADT<T>
                 GraphADTNode<T> _current = current;
                 while (_current != null)
                 {
-                    path.Push(current);
+                    path.Push(_current);
                     _current = previousNodes[_current];
                 }
                 return path.ToArray();
