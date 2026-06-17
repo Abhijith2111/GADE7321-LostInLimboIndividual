@@ -13,6 +13,7 @@ public class Collectable : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         CollectableManager.Instance?.CollectCollectable();
         CheckpointManager.Instance.AddScore(scoreGiven); // Now give score
+        SFXManager.Instance.PlayAudio("Pickup", SFXManager.Instance.DefaultAudioSource);
         Destroy(gameObject);
     }
 }

@@ -23208,7 +23208,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -23312,6 +23312,10 @@ MonoBehaviour:
     Sound: {fileID: 8300000, guid: 1deb201b8bf8f89479323a74e421150b, type: 3}
   - Id: Rock
     Sound: {fileID: 8300000, guid: f0f794c67e9233d468a38d165590d253, type: 3}
+  - Id: Grunt
+    Sound: {fileID: 8300000, guid: f9de32749285e8346964514e5699f2f7, type: 3}
+  - Id: Pickup
+    Sound: {fileID: 8300000, guid: dcbd2758658920943a62167d56234d75, type: 3}
 --- !u!4 &1697914884
 Transform:
   m_ObjectHideFlags: 0
